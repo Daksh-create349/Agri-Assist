@@ -17,7 +17,8 @@ export function LanguageSwitcher() {
   const pathname = usePathname();
 
   const onSelectChange = (value: string) => {
-    const newPath = pathname.replace(`/${locale}`, `/${value}`);
+    // This regex replaces the current locale in the path with the new one
+    const newPath = pathname.replace(/^\/[a-z]{2}/, `/${value}`);
     router.replace(newPath);
   };
 
@@ -28,13 +29,8 @@ export function LanguageSwitcher() {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="en">{t('english')}</SelectItem>
-        <SelectItem value="es">{t('spanish')}</SelectItem>
-        <SelectItem value="fr">{t('french')}</SelectItem>
-        <SelectItem value="de">{t('german')}</SelectItem>
         <SelectItem value="hi">{t('hindi')}</SelectItem>
         <SelectItem value="mr">{t('marathi')}</SelectItem>
-        <SelectItem value="ml">{t('malayalam')}</SelectItem>
-        <SelectItem value="zh">{t('mandarin')}</SelectItem>
       </SelectContent>
     </Select>
   );

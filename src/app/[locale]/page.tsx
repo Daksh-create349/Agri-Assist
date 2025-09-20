@@ -1,10 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
 import { useTranslations } from 'next-intl';
 
-import { auth } from '@/lib/firebase/client-app';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Logo } from '@/components/logo';
 
@@ -15,15 +13,6 @@ export default function Home() {
 
   useEffect(() => {
     router.replace('/dashboard');
-    // const unsubscribe = onAuthStateChanged(auth, (user) => {
-    //   if (user) {
-    //     router.replace('/dashboard');
-    //   } else {
-    //     router.replace('/auth');
-    //   }
-    // });
-
-    // return () => unsubscribe();
   }, [router]);
 
   return (

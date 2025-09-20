@@ -59,7 +59,6 @@ export function LocationGuidance() {
     );
   };
   
-  // Automatically request location when the component mounts
   useEffect(() => {
     getLocation();
   }, []);

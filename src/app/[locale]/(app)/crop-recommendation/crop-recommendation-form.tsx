@@ -172,7 +172,7 @@ function CropRecommendationFormComponent() {
                     <FormItem>
                         <FormLabel>{t('form.farmlandAreaLabel')}</FormLabel>
                         <FormControl>
-                            <Input type="number" placeholder={t('form.farmlandAreaPlaceholder')} {...field} />
+                            <Input type="number" placeholder={t('form.farmlandAreaPlaceholder')} {...field} value={field.value ?? ''} />
                         </FormControl>
                          <FormMessage />
                     </FormItem>

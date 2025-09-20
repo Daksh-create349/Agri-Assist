@@ -43,7 +43,6 @@ export function SoilAnalysisResult({ result, location, climateConditions }: Soil
   const { overallHealth, recommendations, nutrientAnalysis } = result;
   
   const nutrients = [
-      { name: 'pH Level', ...nutrientAnalysis.ph },
       { name: t('nutrientpH'), ...nutrientAnalysis.ph },
       { name: t('nutrientNitrogen'), ...nutrientAnalysis.nitrogen },
       { name: t('nutrientPhosphorus'), ...nutrientAnalysis.phosphorus },

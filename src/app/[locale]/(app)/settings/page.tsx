@@ -24,8 +24,6 @@ export default function SettingsPage() {
   };
 
   const handleLogout = () => {
-    // In a real app, you would call your sign-out function here.
-    // For this demo, we just redirect to the auth page.
     router.push('/auth');
   };
 
