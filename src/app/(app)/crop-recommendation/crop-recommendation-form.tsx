@@ -187,7 +187,7 @@ function CropRecommendationFormComponent() {
               <div>
                 <h3 className="font-semibold text-lg flex items-center gap-2"><Leaf/> Suggested Crops</h3>
                 <div className="mt-2 flex flex-wrap gap-2">
-                    {aiResponse.suggestedCrops.split(',').map((crop) => (
+                    {aiResponse.suggestedCrops.map((crop) => (
                         <div key={crop.trim()} className="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary-foreground">
                             {crop.trim()}
                         </div>

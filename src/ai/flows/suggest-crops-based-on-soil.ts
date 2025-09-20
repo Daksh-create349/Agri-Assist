@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview This file defines a Genkit flow to suggest suitable crops based on soil data and location.
@@ -27,7 +28,7 @@ export type SuggestCropsInput = z.infer<typeof SuggestCropsInputSchema>;
 
 const SuggestCropsOutputSchema = z.object({
   suggestedCrops: z
-    .string()
+    .array(z.string())
     .describe('A list of suggested crops suitable for the given soil data, location and climatic conditions.'),
   reasoning: z
     .string()
@@ -49,12 +50,7 @@ Soil Data: {{{soilData}}}
 Location: {{{location}}}
 Climate Conditions: {{{climateConditions}}}
 
-Consider the following factors:
-- Soil nutrient levels and pH balance
-- Local climate and weather patterns
-- Crop suitability for the region
-
-Provide a list of suggested crops and a detailed explanation of why each crop is suitable for the given conditions. Format the list of suggested crops as comma seperated string.
+Provide a list of suggested crops and a detailed explanation of why each crop is suitable for the given conditions.
 `,
 });
 
