@@ -12,3 +12,4 @@ import '@/ai/flows/infer-soil-conditions-from-crop-image.ts';
 import '@/ai/flows/voice-assistant-flow.ts';
 import '@/ai/flows/extract-aadhar-details.ts';
 import '@/ai/flows/get-weather-from-coords.ts';
+import '@/ai/flows/suggest-crops-based-on-weather.ts';

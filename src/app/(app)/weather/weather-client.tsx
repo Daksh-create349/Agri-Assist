@@ -1,16 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, AlertTriangle, MapPin, CloudSun, Sunrise, Sunset, Wind, Droplets, Thermometer, Cloudy, Sun, CloudRain } from 'lucide-react';
+import { Loader2, AlertTriangle, MapPin, CloudSun, Sunrise, Sunset, Wind, Droplets, Thermometer, Cloudy, Sun, CloudRain, Leaf } from 'lucide-react';
 import { getWeatherFromCoords, type GetWeatherFromCoordsOutput } from '@/ai/flows/get-weather-from-coords';
+import { suggestCropsBasedOnWeather, type SuggestCropsBasedOnWeatherOutput } from '@/ai/flows/suggest-crops-based-on-weather';
 import { Separator } from '@/components/ui/separator';
 
 type WeatherState = {
   status: 'idle' | 'loadingCoords' | 'loadingWeather' | 'success' | 'error';
   weatherData?: GetWeatherFromCoordsOutput;
+  cropAdvisory?: SuggestCropsBasedOnWeatherOutput;
   error?: string;
 };
 
@@ -30,8 +32,12 @@ export function WeatherClient() {
     setWeatherState(prevState => ({ ...prevState, status: 'loadingWeather' }));
     try {
       const { latitude, longitude } = coords;
-      const response = await getWeatherFromCoords({ latitude, longitude });
-      setWeatherState({ status: 'success', weatherData: response });
+      const weatherResponse = await getWeatherFromCoords({ latitude, longitude });
+      
+      const weatherSummary = `Current: ${weatherResponse.temperature}°C, ${weatherResponse.description}. Forecast: ${weatherResponse.fiveDayForecast.map(d => `${d.day} ${d.highTemp}°/${d.lowTemp}°`).join(', ')}`;
+      const cropResponse = await suggestCropsBasedOnWeather({ weatherSummary });
+
+      setWeatherState({ status: 'success', weatherData: weatherResponse, cropAdvisory: cropResponse });
     } catch (error) {
       console.error("Failed to fetch weather data", error);
       toast({
@@ -88,7 +94,7 @@ export function WeatherClient() {
           <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-border p-8 text-center">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
             <p className="mt-4 text-muted-foreground">
-              {weatherState.status === 'loadingCoords' ? 'Fetching your location...' : 'Fetching weather data...'}
+              {weatherState.status === 'loadingCoords' ? 'Fetching your location...' : 'Fetching weather data & crop advice...'}
             </p>
           </div>
         );
@@ -103,7 +109,7 @@ export function WeatherClient() {
           </div>
         );
       case 'success':
-        const { weatherData: data } = weatherState;
+        const { weatherData: data, cropAdvisory } = weatherState;
         if (!data) return null;
         return (
         <>
@@ -167,7 +173,7 @@ export function WeatherClient() {
             </CardContent>
           </Card>
         </div>
-        <div className="mt-6">
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
             <Card>
                 <CardHeader>
                     <CardTitle>5-Day Forecast</CardTitle>
@@ -187,6 +193,29 @@ export function WeatherClient() {
                             </div>
                         ))}
                     </div>
+                </CardContent>
+            </Card>
+             <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Leaf className="text-primary"/> Crop Advisory</CardTitle>
+                    <CardDescription>Based on the current weather forecast.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    {cropAdvisory ? (
+                         <ul className="space-y-3">
+                            {cropAdvisory.cropSuggestions.map((crop, index) => (
+                                <li key={index}>
+                                    <p className="font-semibold">{crop.name}</p>
+                                    <p className="text-sm text-muted-foreground">{crop.reasoning}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <div className="flex items-center justify-center text-muted-foreground">
+                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Loading recommendations...
+                        </div>
+                    )}
                 </CardContent>
             </Card>
         </div>
