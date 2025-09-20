@@ -2,27 +2,29 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { Skeleton } from '@/components/ui/skeleton';
 import { Logo } from '@/components/logo';
-
 
 export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace('/dashboard');
+    const timer = setTimeout(() => {
+      router.replace('/dashboard');
+    }, 2000); // Wait for 2 seconds to show animation
+    return () => clearTimeout(timer);
   }, [router]);
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center space-y-4 bg-background p-4">
-      <div className="flex items-center space-x-2">
-        <Logo />
+    <div className="flex h-screen w-full flex-col items-center justify-center space-y-4 bg-background p-4 overflow-hidden">
+      <div className="animate-fade-in-rise flex flex-col items-center justify-center gap-4">
+        <Logo className="scale-150" />
+        <h1 className="text-3xl font-bold font-headline text-primary tracking-tight">
+          AgriAssist
+        </h1>
       </div>
-      <p className="text-muted-foreground">Loading your experience...</p>
-      <div className="w-full max-w-md space-y-4">
-        <Skeleton className="h-12 w-full" />
-        <Skeleton className="h-24 w-full" />
-      </div>
+      <p className="text-muted-foreground animate-fade-in-rise animation-delay-500">
+        Loading your experience...
+      </p>
     </div>
   );
 }
