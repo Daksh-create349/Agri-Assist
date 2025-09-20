@@ -2,6 +2,11 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Loader2, Upload, X, TestTube } from 'lucide-react';
+
 import {
   Card,
   CardContent,
@@ -10,15 +15,57 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Upload, X } from 'lucide-react';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { useToast } from '@/hooks/use-toast';
+import {
+  analyzeSoilData,
+  type AnalyzeSoilDataOutput,
+} from '@/ai/flows/analyze-soil-data';
+import { SoilAnalysisResult } from './soil-analysis-result';
+
+const formSchema = z.object({
+  phLevel: z.string().optional(),
+  organicMatter: z.string().optional(),
+  nitrogen: z.string().optional(),
+  phosphorus: z.string().optional(),
+  potassium: z.string().optional(),
+  texture: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export function SoilAnalysisForm() {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [aiResponse, setAiResponse] = useState<AnalyzeSoilDataOutput | null>(
+    null
+  );
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      phLevel: '',
+      organicMatter: '',
+      nitrogen: '',
+      phosphorus: '',
+      potassium: '',
+      texture: '',
+      notes: '',
+    },
+  });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -32,123 +79,256 @@ export function SoilAnalysisForm() {
     }
   };
 
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
+  const fileToDataUri = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
   };
-  
-  const resetSelection = () => {
-    setFile(null);
-    setPreview(null);
-    if(fileInputRef.current) {
-        fileInputRef.current.value = '';
+
+  async function onSubmit(values: FormData) {
+    if (!file && Object.values(values).every((v) => !v)) {
+      toast({
+        variant: 'destructive',
+        title: 'No data provided',
+        description:
+          'Please upload a soil report or fill in the manual entry fields.',
+      });
+      return;
+    }
+    setIsSubmitting(true);
+    setAiResponse(null);
+    try {
+      const photoDataUri = file ? await fileToDataUri(file) : undefined;
+      const response = await analyzeSoilData({ ...values, photoDataUri });
+      setAiResponse(response);
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to analyze soil data. Please try again.',
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const resetSelection = () => {
+    setFile(null);
+    setPreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Submit Soil Data</CardTitle>
-        <CardDescription>
-          You can either upload a file or manually enter the key
-          characteristics of your soil.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="file-upload">Upload Test Results</Label>
-            <Input
-              id="file-upload"
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="hidden"
-              accept="image/*"
-            />
-            {preview ? (
-              <div className="relative group w-full max-w-sm rounded-lg border border-border overflow-hidden">
-                <Image
-                  src={preview}
-                  alt="Soil report preview"
-                  width={400}
-                  height={300}
-                  className="object-contain"
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <Card>
+        <CardHeader>
+          <CardTitle>Submit Soil Data</CardTitle>
+          <CardDescription>
+            Upload a file or manually enter the key characteristics of your soil.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <div className="space-y-2">
+                <FormLabel>Upload Test Results</FormLabel>
+                <Input
+                  id="file-upload"
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  className="hidden"
+                  accept="image/*"
                 />
-                <Button 
-                  type="button" 
-                  variant="destructive" 
-                  size="icon" 
-                  className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity"
-                  onClick={resetSelection}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-border p-8 text-center">
-                <div className="text-center">
-                   <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
-                    <p className="mt-4 text-sm text-muted-foreground">
-                      Click the button to upload a photo of your soil report.
-                    </p>
-                    <Button type="button" variant="outline" onClick={handleUploadClick} className="mt-4">
-                      <Upload className="mr-2 h-4 w-4" />
-                      Select File
+                {preview ? (
+                  <div className="group relative w-full max-w-sm overflow-hidden rounded-lg border border-border">
+                    <Image
+                      src={preview}
+                      alt="Soil report preview"
+                      width={400}
+                      height={300}
+                      className="object-contain"
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon"
+                      className="absolute right-2 top-2 h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100"
+                      onClick={resetSelection}
+                    >
+                      <X className="h-4 w-4" />
                     </Button>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-border p-8 text-center">
+                    <div className="text-center">
+                      <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
+                      <p className="mt-4 text-sm text-muted-foreground">
+                        Upload a photo of your soil report.
+                      </p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleUploadClick}
+                        className="mt-4"
+                      >
+                        <Upload className="mr-2 h-4 w-4" />
+                        Select File
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">
+                    Or enter manually
+                  </span>
                 </div>
               </div>
-            )}
-          </div>
 
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">
-                Or enter manually
-              </span>
-            </div>
-          </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="phLevel"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>pH Level</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 6.5" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="organicMatter"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Organic Matter (%)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 3.1" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="nitrogen"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nitrogen (ppm)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 20" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phosphorus"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phosphorus (ppm)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 50" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="potassium"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Potassium (ppm)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 150" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="texture"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Soil Texture</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., Loamy Sand" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="ph-level">pH Level</Label>
-              <Input id="ph-level" placeholder="e.g., 6.5" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="organic-matter">Organic Matter (%)</Label>
-              <Input id="organic-matter" placeholder="e.g., 3.1" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="nitrogen">Nitrogen (ppm)</Label>
-              <Input id="nitrogen" placeholder="e.g., 20" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="phosphorus">Phosphorus (ppm)</Label>
-              <Input id="phosphorus" placeholder="e.g., 50" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="potassium">Potassium (ppm)</Label>
-              <Input id="potassium" placeholder="e.g., 150" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="texture">Soil Texture</Label>
-              <Input id="texture" placeholder="e.g., Loamy Sand" />
-            </div>
-          </div>
+              <FormField
+                  control={form.control}
+                  name="notes"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Additional Notes</FormLabel>
+                      <FormControl>
+                          <Textarea
+                            id="notes"
+                            placeholder="Any other observations or details..."
+                            {...field}
+                          />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-          <div className="space-y-2">
-            <Label htmlFor="notes">Additional Notes</Label>
-            <Textarea
-              id="notes"
-              placeholder="Any other observations or details..."
-            />
-          </div>
-
-          <Button type="submit">Analyze Soil</Button>
-        </form>
-      </CardContent>
-    </Card>
+              <Button type="submit" disabled={isSubmitting}>
+                 {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Analyzing Soil...
+                  </>
+                ) : (
+                  <>
+                    <TestTube className="mr-2 h-4 w-4" />
+                    Analyze Soil
+                  </>
+                )}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+      <div className="space-y-6">
+        {isSubmitting && (
+           <Card className="flex h-full min-h-96 flex-col items-center justify-center">
+            <CardContent className="text-center">
+              <Loader2 className="mx-auto mb-4 h-12 w-12 animate-spin text-primary" />
+              <p className="text-lg font-semibold">Analyzing your soil data...</p>
+              <p className="text-muted-foreground">Our AI is preparing your soil report.</p>
+            </CardContent>
+          </Card>
+        )}
+        {aiResponse && <SoilAnalysisResult result={aiResponse} />}
+      </div>
+    </div>
   );
 }
