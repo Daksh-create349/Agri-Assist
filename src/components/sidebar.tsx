@@ -75,9 +75,9 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                             <Logo isCollapsed={isCollapsed} />
                         </Link>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 overflow-y-auto">
                         <TooltipProvider>
-                        <nav className={cn("grid items-start text-sm font-medium", isCollapsed ? "px-2" : "px-2 lg:px-4")}>
+                        <nav className={cn("grid items-start text-sm font-medium", isCollapsed ? "px-2 py-4" : "px-2 py-4 lg:px-4")}>
                             {links.map((link) => (
                                 isCollapsed ? (
                                     <Tooltip key={link.href} delayDuration={0}>
@@ -110,11 +110,41 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                         </nav>
                         </TooltipProvider>
                     </div>
-                    <div className="mt-auto p-4">
-                        <Button onClick={toggleSidebar} size="icon" variant="outline" className="w-full">
-                           {isCollapsed ? <PanelRight className="h-4 w-4" /> : <PanelLeft className="h-4 w-4" />}
-                           <span className="sr-only">Toggle Sidebar</span>
-                        </Button>
+                    <div className="mt-auto border-t">
+                        <div className={cn("grid items-start text-sm font-medium", isCollapsed ? "px-2 py-4" : "px-2 py-4 lg:px-4")}>
+                            {isCollapsed ? (
+                                <Tooltip delayDuration={0}>
+                                    <TooltipTrigger asChild>
+                                        <Link
+                                            href="/settings"
+                                            className={cn("flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-primary md:h-8 md:w-8", 
+                                            pathname === '/settings' && "bg-muted text-primary"
+                                            )}
+                                        >
+                                            <Settings className="h-5 w-5" />
+                                            <span className="sr-only">Settings</span>
+                                        </Link>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="right">Settings</TooltipContent>
+                                </Tooltip>
+                            ) : (
+                                <Link
+                                    href="/settings"
+                                    className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", 
+                                    pathname === '/settings' && "bg-muted text-primary"
+                                    )}
+                                >
+                                    <Settings className="h-4 w-4" />
+                                    Settings
+                                </Link>
+                            )}
+                        </div>
+                        <div className="p-4 border-t">
+                            <Button onClick={toggleSidebar} size="icon" variant="outline" className="w-full">
+                            {isCollapsed ? <PanelRight className="h-4 w-4" /> : <PanelLeft className="h-4 w-4" />}
+                            <span className="sr-only">Toggle Sidebar</span>
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </aside>
