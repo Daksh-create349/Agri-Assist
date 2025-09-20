@@ -110,7 +110,7 @@ export function SoilAnalysisForm() {
       const { location, climateConditions, ...soilValues } = values;
       const response = await analyzeSoilData({ ...soilValues, photoDataUri });
       setAiResponse(response);
-    } catch (error)
+    } catch (error) {
       console.error(error);
       toast({
         variant: 'destructive',
@@ -380,4 +380,3 @@ export function SoilAnalysisForm() {
     </div>
   );
 }
-
