@@ -31,17 +31,11 @@ const loginSchema = z.object({
   password: z.string().min(1, 'Please enter your password.'),
 });
 
-const signUpSchema = z
-  .object({
-    fullName: z.string().min(2, 'Please enter your full name.'),
-    email: z.string().email('Please enter a valid email address.'),
-    password: z.string().min(8, 'Password must be at least 8 characters long.'),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  });
+const signUpSchema = z.object({
+  fullName: z.string().min(1, 'Please enter your full name.'),
+  email: z.string().email('Please enter a valid email address.'),
+  password: z.string().min(1, 'Please enter a password.'),
+});
 
 type LoginFormData = z.infer<typeof loginSchema>;
 type SignUpFormData = z.infer<typeof signUpSchema>;
@@ -66,7 +60,6 @@ export function AuthForm() {
       fullName: '',
       email: '',
       password: '',
-      confirmPassword: '',
     },
   });
 
@@ -206,19 +199,6 @@ export function AuthForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={signUpForm.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
