@@ -9,3 +9,4 @@ import '@/ai/flows/get-location-name-from-coords.ts';
 import '@/ai/flows/analyze-soil-data.ts';
 import '@/ai/flows/get-climate-conditions-from-coords.ts';
 import '@/ai/flows/infer-soil-conditions-from-crop-image.ts';
+import '@/ai/flows/voice-assistant-flow.ts';

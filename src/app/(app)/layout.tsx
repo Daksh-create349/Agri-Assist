@@ -1,4 +1,5 @@
 import { Sidebar } from '@/components/sidebar';
+import { VoiceAssistant } from '@/components/voice-assistant';
 
 export default function AppLayout({
   children,
@@ -11,6 +12,7 @@ export default function AppLayout({
       <div className="flex flex-col">
         {children}
       </div>
+      <VoiceAssistant />
     </div>
   );
 }
