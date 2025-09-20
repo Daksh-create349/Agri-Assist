@@ -4,14 +4,23 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, AlertTriangle, MapPin, CloudSun, Sunrise, Sunset, Wind, Droplets, Thermometer } from 'lucide-react';
+import { Loader2, AlertTriangle, MapPin, CloudSun, Sunrise, Sunset, Wind, Droplets, Thermometer, Cloudy, Sun, CloudRain } from 'lucide-react';
 import { getWeatherFromCoords, type GetWeatherFromCoordsOutput } from '@/ai/flows/get-weather-from-coords';
+import { Separator } from '@/components/ui/separator';
 
 type WeatherState = {
   status: 'idle' | 'loadingCoords' | 'loadingWeather' | 'success' | 'error';
   weatherData?: GetWeatherFromCoordsOutput;
   error?: string;
 };
+
+const getWeatherIcon = (description: string) => {
+    const desc = description.toLowerCase();
+    if (desc.includes('rain') || desc.includes('shower')) return <CloudRain className="h-6 w-6 text-blue-400" />;
+    if (desc.includes('cloud')) return <Cloudy className="h-6 w-6 text-gray-400" />;
+    if (desc.includes('sun') || desc.includes('clear')) return <Sun className="h-6 w-6 text-yellow-400" />;
+    return <CloudSun className="h-6 w-6 text-gray-500" />;
+}
 
 export function WeatherClient() {
   const [weatherState, setWeatherState] = useState<WeatherState>({ status: 'idle' });
@@ -164,7 +173,20 @@ export function WeatherClient() {
                     <CardTitle>5-Day Forecast</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p className="text-muted-foreground">Detailed 5-day forecast coming soon...</p>
+                    <div className="space-y-4">
+                        {data.fiveDayForecast.map((day, index) => (
+                            <div key={index}>
+                                <div className="flex justify-between items-center">
+                                    <div className="w-1/4 font-semibold">{day.day}</div>
+                                    <div className="w-1/4 flex justify-center">{getWeatherIcon(day.description)}</div>
+                                    <div className="w-1/2 text-right">
+                                        <span className="font-semibold">{day.highTemp}°</span> / <span className="text-muted-foreground">{day.lowTemp}°</span>
+                                    </div>
+                                </div>
+                                {index < data.fiveDayForecast.length - 1 && <Separator className="mt-4" />}
+                            </div>
+                        ))}
+                    </div>
                 </CardContent>
             </Card>
         </div>

@@ -16,6 +16,13 @@ const GetWeatherFromCoordsInputSchema = z.object({
 });
 export type GetWeatherFromCoordsInput = z.infer<typeof GetWeatherFromCoordsInputSchema>;
 
+const DailyForecastSchema = z.object({
+    day: z.string().describe('The day of the week (e.g., "Monday").'),
+    highTemp: z.number().describe('The forecasted high temperature in Celsius.'),
+    lowTemp: z.number().describe('The forecasted low temperature in Celsius.'),
+    description: z.string().describe('A short description of the forecasted weather (e.g., "Partly cloudy").'),
+});
+
 const GetWeatherFromCoordsOutputSchema = z.object({
     locationName: z.string().describe('The name of the location (e.g., "City, State, Country").'),
     temperature: z.number().describe('The current temperature in Celsius.'),
@@ -27,6 +34,7 @@ const GetWeatherFromCoordsOutputSchema = z.object({
     sunrise: z.string().describe('The sunrise time (e.g., "6:05 AM").'),
     sunset: z.string().describe('The sunset time (e.g., "7:15 PM").'),
     daylightHours: z.string().describe('The total hours of daylight.'),
+    fiveDayForecast: z.array(DailyForecastSchema).describe('A 5-day weather forecast.'),
 });
 export type GetWeatherFromCoordsOutput = z.infer<typeof GetWeatherFromCoordsOutputSchema>;
 
@@ -40,14 +48,14 @@ const prompt = ai.definePrompt({
   name: 'getWeatherFromCoordsPrompt',
   input: {schema: GetWeatherFromCoordsInputSchema},
   output: {schema: GetWeatherFromCoordsOutputSchema},
-  prompt: `You are a weather simulation AI. Based on the following geographic coordinates, generate a realistic but fictional real-time weather report.
+  prompt: `You are a weather simulation AI. Based on the following geographic coordinates, generate a realistic but fictional real-time weather report and a 5-day forecast.
 
 Do not use any external tools. Create plausible data based on the general climate expected at the location.
 
 Latitude: {{{latitude}}}
 Longitude: {{{longitude}}}
 
-Your response must include all fields in the output schema, including locationName, temperature, feelsLike, description, humidity, windSpeed, windDirection, sunrise, sunset, and daylightHours.
+Your response must include all fields in the output schema, including the current weather conditions and the 5-day forecast.
 `,
 });
 
