@@ -13,6 +13,10 @@ import {
   Store,
   TestTube,
   TrendingUp,
+  CloudSun,
+  Users,
+  Boxes,
+  Landmark,
 } from 'lucide-react';
 import Link from 'next/link';
 import { DashboardHeader } from './dashboard-header';
@@ -59,6 +63,30 @@ const features = [
     description: 'Optimize your marketplace listings with AI.',
     href: '/marketplace-boost',
     icon: TrendingUp,
+  },
+  {
+    title: 'Weather Forecast',
+    description: 'Get real-time weather updates and alerts.',
+    href: '/weather',
+    icon: CloudSun,
+  },
+  {
+    title: 'Community Forum',
+    description: 'Connect with other farmers and share knowledge.',
+    href: '/community',
+    icon: Users,
+  },
+  {
+    title: 'Inventory Management',
+    description: 'Track your farm supplies like seeds and fertilizers.',
+    href: '/inventory',
+    icon: Boxes,
+  },
+  {
+    title: 'Government Schemes',
+    description: 'Find information on subsidies and programs.',
+    href: '/schemes',
+    icon: Landmark,
   },
 ];
 

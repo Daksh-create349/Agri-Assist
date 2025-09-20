@@ -16,7 +16,11 @@ import {
   Rss,
   User,
   PanelLeft,
-  PanelRight
+  PanelRight,
+  CloudSun,
+  Users,
+  Boxes,
+  Landmark,
 } from 'lucide-react';
 
 import { Logo } from '@/components/logo';
@@ -56,6 +60,10 @@ const links = [
     icon: TrendingUp,
   },
   { href: '/my-poll', label: 'My Poll', icon: Rss },
+  { href: '/weather', label: 'Weather', icon: CloudSun },
+  { href: '/community', label: 'Community', icon: Users },
+  { href: '/inventory', label: 'Inventory', icon: Boxes },
+  { href: '/schemes', label: 'Govt. Schemes', icon: Landmark },
   { href: '/profile', label: 'My Profile', icon: User },
 ];
 
