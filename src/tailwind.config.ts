@@ -98,20 +98,9 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-rise': 'fade-in-rise 1s ease-out forwards',
       },
-      animationDelay: {
-        '500': '500ms',
-      }
     },
   },
   plugins: [
     require('tailwindcss-animate'),
-    function ({ addUtilities, theme }: {addUtilities: any, theme: any}) {
-      const newUtilities = {
-        '.animation-delay-500': {
-          'animation-delay': theme('animationDelay.500'),
-        },
-      }
-      addUtilities(newUtilities)
-    }
   ],
 } satisfies Config;
