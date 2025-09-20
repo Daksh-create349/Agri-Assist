@@ -4,15 +4,36 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, MapPin, AlertTriangle } from 'lucide-react';
+import { getLocationNameFromCoords } from '@/ai/flows/get-location-name-from-coords';
+import { useToast } from '@/hooks/use-toast';
 
 type LocationState = {
-  status: 'idle' | 'loading' | 'success' | 'error';
+  status: 'idle' | 'loadingCoords' | 'loadingName' | 'success' | 'error';
   coords?: GeolocationCoordinates;
+  locationName?: string;
   error?: string;
 };
 
 export function LocationGuidance() {
   const [locationState, setLocationState] = useState<LocationState>({ status: 'idle' });
+  const { toast } = useToast();
+
+  const fetchLocationName = async (coords: GeolocationCoordinates) => {
+    setLocationState(prevState => ({ ...prevState, status: 'loadingName' }));
+    try {
+      const { latitude, longitude } = coords;
+      const response = await getLocationNameFromCoords({ latitude, longitude });
+      setLocationState(prevState => ({ ...prevState, status: 'success', locationName: response.locationName }));
+    } catch (error) {
+      console.error("Failed to fetch location name", error);
+      toast({
+        variant: 'destructive',
+        title: 'Could not fetch location name',
+        description: 'We found your coordinates but could not determine the location name.',
+      });
+      setLocationState(prevState => ({ ...prevState, status: 'success', locationName: 'Unknown Location' }));
+    }
+  };
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -20,11 +41,12 @@ export function LocationGuidance() {
       return;
     }
 
-    setLocationState({ status: 'loading' });
+    setLocationState({ status: 'loadingCoords' });
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLocationState({ status: 'success', coords: position.coords });
+        setLocationState({ status: 'loadingName', coords: position.coords });
+        fetchLocationName(position.coords);
       },
       () => {
         setLocationState({
@@ -61,10 +83,12 @@ export function LocationGuidance() {
           </div>
         )}
 
-        {locationState.status === 'loading' && (
+        {(locationState.status === 'loadingCoords' || locationState.status === 'loadingName') && (
           <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-border p-8 text-center">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            <p className="mt-4 text-muted-foreground">Fetching your location...</p>
+            <p className="mt-4 text-muted-foreground">
+              {locationState.status === 'loadingCoords' ? 'Fetching your location...' : 'Identifying your location...'}
+            </p>
           </div>
         )}
 
@@ -81,11 +105,11 @@ export function LocationGuidance() {
         {locationState.status === 'success' && locationState.coords && (
           <div>
             <div className="mb-4 rounded-lg bg-primary/10 p-4">
-              <p className="font-semibold text-primary">
+              <p className="font-semibold text-primary flex items-center">
                 <MapPin className="mr-2 inline-block h-4 w-4" />
-                Location Found
+                {locationState.locationName || 'Location Found'}
               </p>
-              <p className="font-mono text-sm text-primary">
+              <p className="font-mono text-sm text-primary/80 mt-1">
                 Lat: {locationState.coords.latitude.toFixed(4)}, Lon: {locationState.coords.longitude.toFixed(4)}
               </p>
             </div>
