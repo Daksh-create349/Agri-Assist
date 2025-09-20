@@ -13,25 +13,23 @@ import {
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
 
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
 
 
 export function SidebarNav() {
-  const t = useTranslations('Sidebar');
   const pathname = usePathname();
 
   const links = [
-    { href: '/dashboard', label: t('dashboard'), icon: LayoutDashboard },
-    { href: '/soil-analysis', label: t('soilAnalysis'), icon: TestTube },
-    { href: '/crop-recommendation', label: t('cropRecommendation'), icon: Leaf },
-    { href: '/disease-identification', label: t('diseaseId'), icon: Scan },
-    { href: '/fertilizer-recommendation', label: t('fertilizerRecs'), icon: FlaskConical },
-    { href: '/crop-guidance', label: t('cropGuidance'), icon: MapPin },
-    { href: '/marketplace', label: t('marketplace'), icon: Store },
-    { href: '/marketplace-boost', label: t('marketplaceBoost'), icon: TrendingUp },
-    { href: '/settings', label: t('settings'), icon: Settings },
+    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/soil-analysis', label: 'Soil Analysis', icon: TestTube },
+    { href: '/crop-recommendation', label: 'Crop Recommendation', icon: Leaf },
+    { href: '/disease-identification', label: 'Disease ID', icon: Scan },
+    { href: '/fertilizer-recommendation', label: 'Fertilizer Recs', icon: FlaskConical },
+    { href: '/crop-guidance', label: 'Crop Guidance', icon: MapPin },
+    { href: '/marketplace', label: 'Marketplace', icon: Store },
+    { href: '/marketplace-boost', label: 'Marketplace Boost', icon: TrendingUp },
+    { href: '/settings', label: 'Settings', icon: Settings },
   ]
 
 
