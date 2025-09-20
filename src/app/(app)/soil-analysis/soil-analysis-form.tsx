@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Loader2, Upload, X, TestTube } from 'lucide-react';
+import { Loader2, Upload, X, TestTube, MapPin } from 'lucide-react';
 
 import {
   Card,
@@ -31,6 +31,7 @@ import {
   analyzeSoilData,
   type AnalyzeSoilDataOutput,
 } from '@/ai/flows/analyze-soil-data';
+import { getLocationNameFromCoords } from '@/ai/flows/get-location-name-from-coords';
 import { SoilAnalysisResult } from './soil-analysis-result';
 
 const formSchema = z.object({
@@ -50,6 +51,7 @@ type FormData = z.infer<typeof formSchema>;
 export function SoilAnalysisForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFetchingLocation, setIsFetchingLocation] = useState(false);
   const [aiResponse, setAiResponse] = useState<AnalyzeSoilDataOutput | null>(
     null
   );
@@ -133,6 +135,49 @@ export function SoilAnalysisForm() {
       fileInputRef.current.value = '';
     }
   };
+  
+  const handleGetLocation = () => {
+    if (!navigator.geolocation) {
+       toast({
+        variant: 'destructive',
+        title: 'Geolocation Not Supported',
+        description: 'Your browser does not support geolocation.',
+      });
+      return;
+    }
+    
+    setIsFetchingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+           const { latitude, longitude } = position.coords;
+           const response = await getLocationNameFromCoords({ latitude, longitude });
+           form.setValue('location', response.locationName, { shouldValidate: true });
+           toast({
+              title: 'Location Found',
+              description: `Set location to ${response.locationName}`,
+           });
+        } catch (error) {
+            console.error('Failed to get location name', error);
+            toast({
+                variant: 'destructive',
+                title: 'Could not fetch location name',
+                description: 'We found your coordinates but could not determine the location name.',
+            });
+        } finally {
+            setIsFetchingLocation(false);
+        }
+      },
+      () => {
+        toast({
+            variant: 'destructive',
+            title: 'Location Access Denied',
+            description: 'Please enable location permissions in your browser settings.',
+        });
+        setIsFetchingLocation(false);
+      }
+    )
+  }
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -322,7 +367,28 @@ export function SoilAnalysisForm() {
                 name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Geographical Location</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Geographical Location</FormLabel>
+                       <Button
+                        type="button"
+                        variant="link"
+                        className="h-auto p-0 text-xs"
+                        onClick={handleGetLocation}
+                        disabled={isFetchingLocation}
+                      >
+                         {isFetchingLocation ? (
+                          <>
+                            <Loader2 className="mr-1 h-3 w-3 animate-spin" />
+                            Fetching...
+                          </>
+                        ) : (
+                          <>
+                           <MapPin className="mr-1 h-3 w-3" />
+                           Use my location
+                          </>
+                        )}
+                      </Button>
+                    </div>
                     <FormControl>
                       <Input placeholder="e.g., Central Valley, California" {...field} />
                     </FormControl>
