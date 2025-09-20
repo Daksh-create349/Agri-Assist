@@ -35,16 +35,20 @@ const voiceMap = {
     'mr-IN': 'schedar',
 }
 
+const languageMap = {
+    'en-US': 'English',
+    'hi-IN': 'Hindi',
+    'mr-IN': 'Marathi',
+}
+
 const prompt = ai.definePrompt({
   name: 'voiceAssistantPrompt',
   input: { schema: VoiceAssistantInputSchema },
   output: { schema: z.object({ response: z.string() }) },
-  prompt: `You are AgriAssist, an intelligent AI assistant for farmers.
-You are having a voice conversation with a user. Keep your responses concise and to the point, suitable for a voice interface.
-
+  system: `You are AgriAssist, an intelligent AI assistant for farmers. Your entire response MUST be in the language specified in the prompt. Do not use any other language.`,
+  prompt: `You are having a voice conversation. Keep your responses concise.
+The selected language is {{languageMap.[language]}}.
 The user's query is: {{{query}}}
-
-CRITICAL INSTRUCTION: The user has selected the language "{{language}}". Your entire response MUST be in this language and only this language. Do not use any English words if the selected language is not English. This is not a suggestion, it is a strict rule.
 `,
 });
 
@@ -82,7 +86,7 @@ const voiceAssistantFlow = ai.defineFlow(
     outputSchema: VoiceAssistantOutputSchema,
   },
   async (input) => {
-    const llmResponse = await prompt(input);
+    const llmResponse = await prompt(input, { languageMap });
     const textResponse = llmResponse.output?.response || 'Sorry, I could not process your request.';
 
     const { media } = await ai.generate({
