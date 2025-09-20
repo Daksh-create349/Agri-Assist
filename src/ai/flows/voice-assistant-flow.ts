@@ -41,7 +41,8 @@ const prompt = ai.definePrompt({
   output: { schema: z.object({ response: z.string() }) },
   prompt: `You are AgriAssist, an intelligent AI assistant for farmers.
 You are having a voice conversation with a user. Keep your responses concise and to the point, suitable for a voice interface.
-The user is speaking in {{language}}. Respond in the same language.
+
+IMPORTANT: The user has selected the language "{{language}}". You MUST respond exclusively in this language. Do not switch languages.
 
 User's query: {{{query}}}
 `,
