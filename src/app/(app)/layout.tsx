@@ -1,4 +1,4 @@
-import { HorizontalNav } from '@/components/horizontal-nav';
+import { Sidebar } from '@/components/sidebar';
 
 export default function AppLayout({
   children,
@@ -6,9 +6,9 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <HorizontalNav />
-      <main className="flex flex-1 flex-col">{children}</main>
+    <div className="flex min-h-screen w-full">
+      <Sidebar />
+      <main className="flex flex-1 flex-col sm:pl-14">{children}</main>
     </div>
   );
 }
