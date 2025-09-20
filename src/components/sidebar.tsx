@@ -14,6 +14,7 @@ import {
   Settings,
   Menu,
   Rss,
+  User,
 } from 'lucide-react';
 
 import { Logo } from '@/components/logo';
@@ -47,6 +48,7 @@ const links = [
     icon: TrendingUp,
   },
   { href: '/my-poll', label: 'My Poll', icon: Rss },
+  { href: '/profile', label: 'My Profile', icon: User },
 ];
 
 export function Sidebar() {
