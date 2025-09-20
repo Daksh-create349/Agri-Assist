@@ -32,6 +32,7 @@ import {
   type AnalyzeSoilDataOutput,
 } from '@/ai/flows/analyze-soil-data';
 import { getLocationNameFromCoords } from '@/ai/flows/get-location-name-from-coords';
+import { getClimateConditionsFromCoords } from '@/ai/flows/get-climate-conditions-from-coords';
 import { SoilAnalysisResult } from './soil-analysis-result';
 
 const formSchema = z.object({
@@ -151,18 +152,25 @@ export function SoilAnalysisForm() {
       async (position) => {
         try {
            const { latitude, longitude } = position.coords;
-           const response = await getLocationNameFromCoords({ latitude, longitude });
-           form.setValue('location', response.locationName, { shouldValidate: true });
+
+           const locationPromise = getLocationNameFromCoords({ latitude, longitude });
+           const climatePromise = getClimateConditionsFromCoords({ latitude, longitude });
+           
+           const [locationResponse, climateResponse] = await Promise.all([locationPromise, climatePromise]);
+           
+           form.setValue('location', locationResponse.locationName, { shouldValidate: true });
+           form.setValue('climateConditions', climateResponse.climateConditions, { shouldValidate: true });
+
            toast({
-              title: 'Location Found',
-              description: `Set location to ${response.locationName}`,
+              title: 'Location & Climate Found',
+              description: `Set location to ${locationResponse.locationName} and fetched climate data.`,
            });
         } catch (error) {
-            console.error('Failed to get location name', error);
+            console.error('Failed to get location info', error);
             toast({
                 variant: 'destructive',
-                title: 'Could not fetch location name',
-                description: 'We found your coordinates but could not determine the location name.',
+                title: 'Could not fetch location data',
+                description: 'We found your coordinates but could not determine the location name or climate.',
             });
         } finally {
             setIsFetchingLocation(false);
