@@ -14,7 +14,6 @@ import {
   Settings,
   Menu,
 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
@@ -27,36 +26,34 @@ import {
 import { Button } from '@/components/ui/button';
 
 export function HorizontalNav() {
-  const t = useTranslations('Sidebar');
   const pathname = usePathname();
 
   const getActivePath = (path: string) => {
-    // This function checks if the current pathname (e.g., /en/dashboard) ends with the link's href
     return pathname.endsWith(path);
   };
 
   const links = [
-    { href: '/dashboard', label: t('dashboard'), icon: LayoutDashboard },
-    { href: '/soil-analysis', label: t('soilAnalysis'), icon: TestTube },
+    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/soil-analysis', label: 'Soil Analysis', icon: TestTube },
     {
       href: '/crop-recommendation',
-      label: t('cropRecommendation'),
+      label: 'Crop Recommendation',
       icon: Leaf,
     },
-    { href: '/disease-identification', label: t('diseaseId'), icon: Scan },
+    { href: '/disease-identification', label: 'Disease ID', icon: Scan },
     {
       href: '/fertilizer-recommendation',
-      label: t('fertilizerRecs'),
+      label: 'Fertilizer Recs',
       icon: FlaskConical,
     },
-    { href: '/crop-guidance', label: t('cropGuidance'), icon: MapPin },
-    { href: '/marketplace', label: t('marketplace'), icon: Store },
+    { href: '/crop-guidance', label: 'Crop Guidance', icon: MapPin },
+    { href: '/marketplace', label: 'Marketplace', icon: Store },
     {
       href: '/marketplace-boost',
-      label: t('marketplaceBoost'),
+      label: 'Marketplace Boost',
       icon: TrendingUp,
     },
-    { href: '/settings', label: t('settings'), icon: Settings },
+    { href: '/settings', label: 'Settings', icon: Settings },
   ];
 
   return (

@@ -1,5 +1,28 @@
-import { redirect } from 'next/navigation';
+'use client';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export default function RootPage() {
-  redirect('/en');
+import { Skeleton } from '@/components/ui/skeleton';
+import { Logo } from '@/components/logo';
+
+
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/dashboard');
+  }, [router]);
+
+  return (
+    <div className="flex h-screen w-full flex-col items-center justify-center space-y-4 bg-background p-4">
+      <div className="flex items-center space-x-2">
+        <Logo />
+      </div>
+      <p className="text-muted-foreground">Loading your experience...</p>
+      <div className="w-full max-w-md space-y-4">
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-24 w-full" />
+      </div>
+    </div>
+  );
 }

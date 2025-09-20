@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -173,7 +172,7 @@ function CropRecommendationFormComponent() {
                     <FormItem>
                         <FormLabel>Farmland Area</FormLabel>
                         <FormControl>
-                            <Input type="number" placeholder="e.g., 50" {...field} />
+                            <Input type="number" placeholder="e.g., 50" {...field} value={field.value ?? ''} />
                         </FormControl>
                          <FormMessage />
                     </FormItem>

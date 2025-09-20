@@ -6,13 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
 
-import { auth } from '@/lib/firebase/client-app';
 import { Button } from '@/components/ui/button';
 import {
   Form,
