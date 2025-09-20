@@ -45,7 +45,7 @@ const prompt = ai.definePrompt({
   name: 'voiceAssistantPrompt',
   input: { schema: VoiceAssistantInputSchema },
   output: { schema: z.object({ response: z.string() }) },
-  system: `You are Agri Mita, an intelligent AI assistant for farmers. Your entire response MUST be in the language specified in the prompt. Do not use any other language.`,
+  system: `You are Agri Mitra, an intelligent AI assistant for farmers. Your entire response MUST be in the language specified in the prompt. Do not use any other language.`,
   prompt: `You are having a voice conversation. Keep your responses concise.
 The selected language is {{languageMap.[language]}}.
 The user's query is: {{{query}}}

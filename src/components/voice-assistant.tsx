@@ -146,7 +146,7 @@ export function VoiceAssistant() {
       </SheetTrigger>
       <SheetContent className="flex flex-col">
         <SheetHeader>
-          <SheetTitle>Agri Mita</SheetTitle>
+          <SheetTitle>Agri Mitra</SheetTitle>
         </SheetHeader>
         <div className="flex items-center gap-2 py-2">
             <Languages className="h-5 w-5 text-muted-foreground" />
