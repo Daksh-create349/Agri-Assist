@@ -2,9 +2,9 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { CheckCircle, FlaskConical, Lightbulb, TrendingDown, TrendingUp, Minus, Leaf, Loader2 } from 'lucide-react';
 import type { AnalyzeSoilDataOutput } from '@/ai/flows/analyze-soil-data';
-import { suggestCrops, type SuggestCropsOutput } from '@/ai/flows/suggest-crops-based-on-soil';
 import {
   Card,
   CardContent,
@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 type SoilAnalysisResultProps = {
@@ -41,10 +40,8 @@ const getStatusVariant = (status: string) => {
 }
 
 export function SoilAnalysisResult({ result, location, climateConditions }: SoilAnalysisResultProps) {
-  const { toast } = useToast();
+  const router = useRouter();
   const { overallHealth, recommendations, nutrientAnalysis } = result;
-  const [cropResponse, setCropResponse] = useState<SuggestCropsOutput | null>(null);
-  const [isSuggestingCrops, setIsSuggestingCrops] = useState(false);
   
   const nutrients = [
       { name: 'pH Level', ...nutrientAnalysis.ph },
@@ -53,27 +50,16 @@ export function SoilAnalysisResult({ result, location, climateConditions }: Soil
       { name: 'Potassium', ...nutrientAnalysis.potassium },
   ]
   
-  const handleSuggestCrops = async () => {
-    setIsSuggestingCrops(true);
-    setCropResponse(null);
-    try {
-      const soilDataString = `Overall Health: ${overallHealth}. Recommendations: ${recommendations.join(', ')}. Nutrient Analysis: ${JSON.stringify(nutrientAnalysis)}`;
-      const response = await suggestCrops({
-        soilData: soilDataString,
-        location,
-        climateConditions,
-      });
-      setCropResponse(response);
-    } catch (error) {
-      console.error('Failed to get crop suggestions', error);
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Failed to get crop suggestions. Please try again.',
-      });
-    } finally {
-      setIsSuggestingCrops(false);
-    }
+  const handleSuggestCrops = () => {
+    const soilDataString = `Overall Health: ${overallHealth}. Recommendations: ${recommendations.join(', ')}. Nutrient Analysis: ${JSON.stringify(nutrientAnalysis)}`;
+    
+    const queryParams = new URLSearchParams({
+      soilData: soilDataString,
+      location: location,
+      climateConditions: climateConditions,
+    });
+
+    router.push(`/crop-recommendation?${queryParams.toString()}`);
   };
 
   return (
@@ -118,58 +104,12 @@ export function SoilAnalysisResult({ result, location, climateConditions }: Soil
           </div>
         </CardContent>
         <CardFooter>
-            <Button onClick={handleSuggestCrops} disabled={isSuggestingCrops}>
-                {isSuggestingCrops ? (
-                    <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Getting Suggestions...
-                    </>
-                ) : (
-                    <>
-                        <Leaf className="mr-2 h-4 w-4" />
-                        Get Crop Suggestions
-                    </>
-                )}
+            <Button onClick={handleSuggestCrops}>
+                <Leaf className="mr-2 h-4 w-4" />
+                Get Crop Suggestions
             </Button>
         </CardFooter>
       </Card>
-      
-      {isSuggestingCrops && (
-         <Card className="flex h-full min-h-64 flex-col items-center justify-center">
-          <CardContent className="text-center">
-            <Loader2 className="mx-auto mb-4 h-12 w-12 animate-spin text-primary" />
-            <p className="text-lg font-semibold">Finding suitable crops...</p>
-            <p className="text-muted-foreground">Our AI is analyzing your soil report and location.</p>
-          </CardContent>
-        </Card>
-      )}
-
-      {cropResponse && (
-        <Card className="bg-primary/5">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-primary">
-              <Leaf /> Crop Recommendations
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-lg">Suggested Crops</h3>
-              <div className="mt-2 flex flex-wrap gap-2">
-                  {cropResponse.suggestedCrops.split(',').map((crop) => (
-                      <div key={crop.trim()} className="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary-foreground">
-                          {crop.trim()}
-                      </div>
-                  ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg">Reasoning</h3>
-              <p className="mt-2 text-sm text-foreground/80">{cropResponse.reasoning}</p>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
     </div>
   );
 }

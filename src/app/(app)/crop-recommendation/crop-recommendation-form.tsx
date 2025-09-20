@@ -1,10 +1,12 @@
+
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2, Sparkles, ThumbsUp, Leaf } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 import {
   suggestCrops,
@@ -38,10 +40,11 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export function CropRecommendationForm() {
+function CropRecommendationFormComponent() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [aiResponse, setAiResponse] = useState<SuggestCropsOutput | null>(null);
+  const searchParams = useSearchParams();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -69,6 +72,23 @@ export function CropRecommendationForm() {
       setIsSubmitting(false);
     }
   }
+
+  useEffect(() => {
+    const soilData = searchParams.get('soilData');
+    const location = searchParams.get('location');
+    const climateConditions = searchParams.get('climateConditions');
+
+    if (soilData && location && climateConditions) {
+      const values = {
+        soilData,
+        location,
+        climateConditions,
+      };
+      form.reset(values);
+      onSubmit(values);
+    }
+  }, [searchParams, form]);
+
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -184,4 +204,15 @@ export function CropRecommendationForm() {
       </div>
     </div>
   );
+}
+
+// Suspense Boundary
+import { Suspense } from 'react';
+
+export function CropRecommendationForm() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CropRecommendationFormComponent />
+        </Suspense>
+    )
 }
