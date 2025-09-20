@@ -1,22 +1,41 @@
+import Image from 'next/image';
 import { AuthForm } from './auth-form';
 import { Logo } from '@/components/logo';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function AuthenticationPage() {
+  const authImage = PlaceHolderImages.find(img => img.id === 'auth-background');
+  
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-        <div className="flex flex-col space-y-2 text-center">
-          <div className="mx-auto">
-            <Logo />
+    <main className="grid min-h-screen w-full grid-cols-1 lg:grid-cols-2">
+      <div className="flex items-center justify-center p-6 lg:p-8">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+          <div className="flex flex-col space-y-2 text-center">
+            <div className="mx-auto">
+              <Logo />
+            </div>
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Welcome to AgriAssist
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Your intelligent partner in modern farming.
+            </p>
           </div>
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Welcome
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Enter your credentials to access your account
-          </p>
+          <AuthForm />
         </div>
-        <AuthForm />
+      </div>
+       <div className="relative hidden bg-muted lg:block">
+        {authImage && (
+          <Image
+            src={authImage.imageUrl}
+            alt="A beautiful farm landscape"
+            fill
+            className="object-cover"
+            data-ai-hint={authImage.imageHint}
+            priority
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-background/0" />
       </div>
     </main>
   );

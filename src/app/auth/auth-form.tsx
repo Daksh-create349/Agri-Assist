@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth';
 
 import { auth } from '@/lib/firebase/client-app';
@@ -30,10 +31,17 @@ const loginSchema = z.object({
   password: z.string().min(1, 'Please enter your password.'),
 });
 
-const signUpSchema = z.object({
-  email: z.string().email('Please enter a valid email address.'),
-  password: z.string().min(8, 'Password must be at least 8 characters long.'),
-});
+const signUpSchema = z
+  .object({
+    fullName: z.string().min(2, 'Please enter your full name.'),
+    email: z.string().email('Please enter a valid email address.'),
+    password: z.string().min(8, 'Password must be at least 8 characters long.'),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 
 type LoginFormData = z.infer<typeof loginSchema>;
 type SignUpFormData = z.infer<typeof signUpSchema>;
@@ -55,8 +63,10 @@ export function AuthForm() {
   const signUpForm = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
+      fullName: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
   });
 
@@ -82,7 +92,14 @@ export function AuthForm() {
   async function onSignUp(values: SignUpFormData) {
     setIsSubmitting(true);
     try {
-      await createUserWithEmailAndPassword(auth, values.email, values.password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      await updateProfile(userCredential.user, {
+        displayName: values.fullName,
+      });
       toast({
         title: 'Account Created',
         description: 'You have successfully signed up. Please log in.',
@@ -112,7 +129,10 @@ export function AuthForm() {
       </TabsList>
       <TabsContent value="login">
         <Form {...loginForm}>
-          <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4 pt-4">
+          <form
+            onSubmit={loginForm.handleSubmit(onLogin)}
+            className="space-y-4 pt-4"
+          >
             <FormField
               control={loginForm.control}
               name="email"
@@ -140,7 +160,9 @@ export function AuthForm() {
               )}
             />
             <Button type="submit" disabled={isSubmitting} className="w-full">
-              {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
               Login
             </Button>
           </form>
@@ -148,7 +170,23 @@ export function AuthForm() {
       </TabsContent>
       <TabsContent value="signup">
         <Form {...signUpForm}>
-          <form onSubmit={signUpForm.handleSubmit(onSignUp)} className="space-y-4 pt-4">
+          <form
+            onSubmit={signUpForm.handleSubmit(onSignUp)}
+            className="space-y-4 pt-4"
+          >
+            <FormField
+              control={signUpForm.control}
+              name="fullName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="John Doe" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={signUpForm.control}
               name="email"
@@ -175,8 +213,23 @@ export function AuthForm() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={signUpForm.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button type="submit" disabled={isSubmitting} className="w-full">
-              {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
               Sign Up
             </Button>
           </form>

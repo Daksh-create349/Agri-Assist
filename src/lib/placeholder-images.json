@@ -35,6 +35,12 @@
       "description": "Vine-ripened tomatoes ready for picking.",
       "imageUrl": "https://picsum.photos/seed/tomatoes/600/400",
       "imageHint": "ripe tomatoes"
+    },
+    {
+      "id": "auth-background",
+      "description": "A beautiful farm landscape at sunset.",
+      "imageUrl": "https://picsum.photos/seed/auth-bg/1080/1920",
+      "imageHint": "farm sunset"
     }
   ]
 }
