@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -51,9 +51,9 @@ export function ProfileForm() {
   const profileForm = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      fullName: 'John Doe',
-      email: 'john.doe@example.com',
-      aadharNumber: '1234 5678 9012',
+      fullName: '',
+      email: '',
+      aadharNumber: '',
     },
   });
   
@@ -66,9 +66,27 @@ export function ProfileForm() {
     },
   });
 
+  useEffect(() => {
+    try {
+      const storedUser = localStorage.getItem('agri-user');
+      if (storedUser) {
+        const userData = JSON.parse(storedUser);
+        profileForm.reset({
+          fullName: userData.fullName || '',
+          email: userData.email || '',
+          aadharNumber: userData.aadharNumber || '',
+        });
+      }
+    } catch (error) {
+        console.error("Failed to parse user data from localStorage", error);
+    }
+  }, [profileForm]);
+
   function onProfileSubmit(values: z.infer<typeof profileSchema>) {
     setIsSubmittingProfile(true);
     setTimeout(() => {
+        // Update localStorage with new values
+        localStorage.setItem('agri-user', JSON.stringify(values));
         toast({
             title: 'Profile Updated',
             description: 'Your personal information has been saved.',

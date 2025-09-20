@@ -69,6 +69,12 @@ export function AuthForm() {
     setIsSubmitting(true);
     // Bypass authentication for demo
     setTimeout(() => {
+      // Store user info in localStorage
+      localStorage.setItem('agri-user', JSON.stringify({
+          fullName: values.fullName,
+          email: values.email,
+          aadharNumber: values.aadharNumber,
+      }));
       router.push('/dashboard');
     }, 500);
   }
@@ -77,6 +83,12 @@ export function AuthForm() {
     setIsSubmitting(true);
     // Bypass authentication for demo
     setTimeout(() => {
+       // Store user info in localStorage for this demo
+      localStorage.setItem('agri-user', JSON.stringify({
+          fullName: 'New User',
+          email: values.email,
+          aadharNumber: '',
+      }));
       router.push('/dashboard');
     }, 500);
   }
