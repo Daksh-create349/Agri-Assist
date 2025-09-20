@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Bot, Mic, MicOff, Languages, X, Loader2, Volume2, User } from 'lucide-react';
+import { Bot, Mic, MicOff, Languages, X, Loader2, Volume2, User, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { voiceAssistant } from '@/ai/flows/voice-assistant-flow';
 import { cn } from '@/lib/utils';
@@ -36,7 +37,7 @@ export function VoiceAssistant() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [language, setLanguage] = useState<'en-US' | 'hi-IN' | 'mr-IN'>('en-US');
   const [messages, setMessages] = useState<Message[]>([]);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const [inputText, setInputText] = useState('');
   const recognitionRef = useRef<any | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { toast } = useToast();
@@ -104,6 +105,7 @@ export function VoiceAssistant() {
   };
   
   const handleSend = async (text: string) => {
+    if (!text.trim()) return;
     setIsProcessing(true);
     try {
       const response = await voiceAssistant({ query: text, language });
@@ -119,6 +121,15 @@ export function VoiceAssistant() {
       addMessage("Sorry, I'm having trouble right now.", 'bot');
     } finally {
       setIsProcessing(false);
+    }
+  };
+
+  const handleTextSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (inputText.trim()) {
+      addMessage(inputText, 'user');
+      handleSend(inputText);
+      setInputText('');
     }
   };
 
@@ -199,16 +210,29 @@ export function VoiceAssistant() {
             )}
           </div>
         </ScrollArea>
-        <div className="flex items-center justify-center p-4 border-t">
-          <Button
-            size="icon"
-            className="h-16 w-16 rounded-full"
-            onClick={handleToggleListening}
-            disabled={isProcessing || isPlaying}
-            variant={isListening ? 'destructive' : 'default'}
-          >
-            {isListening ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
-          </Button>
+        <div className="border-t p-4 space-y-4">
+           <form onSubmit={handleTextSubmit} className="flex items-center gap-2">
+            <Input 
+              placeholder="Type a message..."
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              disabled={isProcessing || isPlaying || isListening}
+            />
+            <Button type="submit" size="icon" disabled={isProcessing || isPlaying || isListening}>
+              <Send className="h-5 w-5"/>
+            </Button>
+          </form>
+          <div className="flex items-center justify-center">
+            <Button
+              size="icon"
+              className="h-16 w-16 rounded-full"
+              onClick={handleToggleListening}
+              disabled={isProcessing || isPlaying}
+              variant={isListening ? 'destructive' : 'default'}
+            >
+              {isListening ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
+            </Button>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
