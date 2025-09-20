@@ -34,7 +34,9 @@ const loginSchema = z.object({
 const signUpSchema = z.object({
   fullName: z.string().min(1, 'Please enter your full name.'),
   email: z.string().email('Please enter a valid email address.'),
-  password: z.string().min(1, 'Please enter a password.'),
+  password: z
+    .string()
+    .min(6, 'Password must be at least 6 characters long.'),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -95,19 +97,20 @@ export function AuthForm() {
       });
       toast({
         title: 'Account Created',
-        description: 'You have successfully signed up. Please log in.',
+        description: 'Welcome! You are now logged in.',
       });
-      setActiveTab('login');
-      loginForm.reset({ email: values.email, password: '' });
-      signUpForm.reset();
+      router.push('/dashboard');
     } catch (error: any) {
+      let description = 'An unexpected error occurred. Please try again.';
+      if (error.code === 'auth/email-already-in-use') {
+        description = 'This email is already associated with an account.';
+      } else if (error.code === 'auth/weak-password') {
+        description = 'The password is too weak. Please use at least 6 characters.';
+      }
       toast({
         variant: 'destructive',
         title: 'Sign Up Error',
-        description:
-          error.code === 'auth/email-already-in-use'
-            ? 'This email is already associated with an account.'
-            : 'An unexpected error occurred. Please try again.',
+        description: description,
       });
     } finally {
       setIsSubmitting(false);
