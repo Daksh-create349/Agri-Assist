@@ -45,7 +45,7 @@ export default function MarketplacePage() {
             </CardContent>
             <CardFooter className="flex items-center justify-between p-4 pt-0">
               <p className="text-xl font-bold text-primary">
-                ${product.price.toFixed(2)}
+                Rs {product.price.toFixed(2)}
               </p>
               <Button size="sm">
                 <ShoppingCart className="mr-2 h-4 w-4" />
