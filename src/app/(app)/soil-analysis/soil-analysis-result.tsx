@@ -51,12 +51,14 @@ export function SoilAnalysisResult({ result, location, climateConditions }: Soil
   ]
   
   const handleSuggestCrops = () => {
-    const soilDataString = `Overall Health: ${overallHealth}. Recommendations: ${recommendations.join(', ')}. Nutrient Analysis: ${JSON.stringify(nutrientAnalysis)}`;
-    
     const queryParams = new URLSearchParams({
-      soilData: soilDataString,
       location: location,
       climateConditions: climateConditions,
+      phLevel: nutrientAnalysis.ph.value,
+      nitrogen: nutrientAnalysis.nitrogen.value,
+      phosphorus: nutrientAnalysis.phosphorus.value,
+      potassium: nutrientAnalysis.potassium.value,
+      overallHealth: overallHealth,
     });
 
     router.push(`/crop-recommendation?${queryParams.toString()}`);

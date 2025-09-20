@@ -12,17 +12,21 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const SuggestCropsInputSchema = z.object({
-  soilData: z
-    .string()
-    .describe('Detailed soil analysis data including nutrient levels, pH, and texture.'),
   location: z
     .string()
     .describe(
-      'The geographical location of the farm, including latitude and longitude.'
+      'The geographical location of the farm (e.g., city, state, country).'
     ),
   climateConditions: z
     .string()
     .describe('Description of climate conditions of the region, including temperature, rainfall and humidity.'),
+  phLevel: z.string().optional().describe('The pH level of the soil.'),
+  organicMatter: z.string().optional().describe('The percentage of organic matter in the soil.'),
+  nitrogen: z.string().optional().describe('The nitrogen level in ppm.'),
+  phosphorus: z.string().optional().describe('The phosphorus level in ppm.'),
+  potassium: z.string().optional().describe('The potassium level in ppm.'),
+  soilTexture: z.string().optional().describe('The texture of the soil (e.g., Loamy Sand).'),
+  overallHealth: z.string().optional().describe('A summary of the overall soil health.'),
 });
 export type SuggestCropsInput = z.infer<typeof SuggestCropsInputSchema>;
 
@@ -44,13 +48,21 @@ const prompt = ai.definePrompt({
   name: 'suggestCropsPrompt',
   input: {schema: SuggestCropsInputSchema},
   output: {schema: SuggestCropsOutputSchema},
-  prompt: `You are an expert agricultural advisor. Based on the soil data, location, and climate conditions provided, suggest the most suitable crops for the farm.
+  prompt: `You are an expert agricultural advisor. Based on the following farm conditions, suggest the most suitable crops.
 
-Soil Data: {{{soilData}}}
 Location: {{{location}}}
-Climate Conditions: {{{climateConditions}}}
+Climate: {{{climateConditions}}}
 
-Provide a list of suggested crops and a detailed explanation of why each crop is suitable for the given conditions.
+Soil Analysis:
+- pH Level: {{{phLevel}}}
+- Organic Matter: {{{organicMatter}}}
+- Nitrogen (ppm): {{{nitrogen}}}
+- Phosphorus (ppm): {{{phosphorus}}}
+- Potassium (ppm): {{{potassium}}}
+- Texture: {{{soilTexture}}}
+- Overall Health Summary: {{{overallHealth}}}
+
+Please provide a list of suggested crops and a detailed explanation of why each is suitable for these specific conditions.
 `,
 });
 

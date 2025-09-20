@@ -10,6 +10,7 @@ import { useSearchParams } from 'next/navigation';
 
 import {
   suggestCrops,
+  type SuggestCropsInput,
   type SuggestCropsOutput,
 } from '@/ai/flows/suggest-crops-based-on-soil';
 import { Button } from '@/components/ui/button';
@@ -33,9 +34,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
-  soilData: z.string().min(10, 'Please provide detailed soil data.'),
   location: z.string().min(2, 'Please enter a valid location.'),
   climateConditions: z.string().min(10, 'Please describe the climate conditions.'),
+  phLevel: z.string().optional(),
+  nitrogen: z.string().optional(),
+  phosphorus: z.string().optional(),
+  potassium: z.string().optional(),
+  overallHealth: z.string().optional(),
+  soilTexture: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -49,13 +55,18 @@ function CropRecommendationFormComponent() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      soilData: '',
       location: '',
       climateConditions: '',
+      phLevel: '',
+      nitrogen: '',
+      phosphorus: '',
+      potassium: '',
+      overallHealth: '',
+      soilTexture: '',
     },
   });
 
-  async function onSubmit(values: FormData) {
+  async function onSubmit(values: SuggestCropsInput) {
     setIsSubmitting(true);
     setAiResponse(null);
     try {
@@ -74,20 +85,31 @@ function CropRecommendationFormComponent() {
   }
 
   useEffect(() => {
-    const soilData = searchParams.get('soilData');
+    // This function will run only once when the component mounts.
     const location = searchParams.get('location');
     const climateConditions = searchParams.get('climateConditions');
-
-    if (soilData && location && climateConditions) {
-      const values = {
-        soilData,
+    const phLevel = searchParams.get('phLevel');
+    const nitrogen = searchParams.get('nitrogen');
+    const phosphorus = searchParams.get('phosphorus');
+    const potassium = searchParams.get('potassium');
+    const overallHealth = searchParams.get('overallHealth');
+    
+    // Check if at least location and climate are present to trigger auto-submission
+    if (location && climateConditions) {
+      const values: SuggestCropsInput = {
         location,
         climateConditions,
+        phLevel: phLevel || undefined,
+        nitrogen: nitrogen || undefined,
+        phosphorus: phosphorus || undefined,
+        potassium: potassium || undefined,
+        overallHealth: overallHealth || undefined,
       };
       form.reset(values);
       onSubmit(values);
     }
-  }, [searchParams, form]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, form.reset]);
 
 
   return (
@@ -102,23 +124,6 @@ function CropRecommendationFormComponent() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="soilData"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Soil Analysis Data</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="e.g., pH: 6.5, Nitrogen: 25ppm, Organic Matter: 3.2%, Texture: Loam"
-                        {...field}
-                        rows={4}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="location"
@@ -148,6 +153,59 @@ function CropRecommendationFormComponent() {
                   </FormItem>
                 )}
               />
+
+              <p className="text-sm font-medium text-muted-foreground">Soil Details (Optional)</p>
+               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                 <FormField
+                  control={form.control}
+                  name="phLevel"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>pH Level</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 6.5" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="nitrogen"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nitrogen (ppm)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 25" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="phosphorus"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phosphorus (ppm)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 50" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="potassium"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Potassium (ppm)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., 150" {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
