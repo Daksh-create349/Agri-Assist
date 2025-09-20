@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -16,6 +15,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import Link from 'next/link';
+import { DashboardHeader } from './dashboard-header';
 
 const features = [
   {
@@ -65,14 +65,7 @@ const features = [
 export default function DashboardPage() {
   return (
     <main className="flex-1 p-4 sm:p-6">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold font-headline tracking-tight">
-          Welcome to AgriAssist
-        </h1>
-        <p className="text-muted-foreground">
-          Your intelligent partner in modern farming.
-        </p>
-      </div>
+      <DashboardHeader />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((feature) => (
           <Link href={feature.href} key={feature.href} className="group">
