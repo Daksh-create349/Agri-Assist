@@ -1,0 +1,351 @@
+{
+  "Sidebar": {
+    "dashboard": "tableau de bord",
+    "soilAnalysis": "मिट्टी का विश्लेषण",
+    "cropRecommendation": "फसल की सिफारिश",
+    "diseaseId": "रोग आईडी",
+    "fertilizerRecs": "उर्वरक सिफारिशें",
+    "cropGuidance": "फसल मार्गदर्शन",
+    "marketplace": "बाज़ार",
+    "marketplaceBoost": "बाज़ार बूस्ट",
+    "settings": "समायोजन"
+  },
+  "Dashboard": {
+    "title": "एग्रीअसिस्ट में आपका स्वागत है",
+    "subtitle": "आधुनिक खेती में आपका बुद्धिमान साथी।",
+    "features": {
+      "soilAnalysis": {
+        "title": "मिट्टी का विश्लेषण",
+        "description": "विस्तृत विश्लेषण के लिए मिट्टी परीक्षण के परिणाम अपलोड करें।"
+      },
+      "cropRecommendation": {
+        "title": "फसल की सिफारिश",
+        "description": "अपनी जमीन के लिए एआई-संचालित फसल सुझाव प्राप्त करें।"
+      },
+      "diseaseIdentification": {
+        "title": "रोग की पहचान",
+        "description": "एक फोटो अपलोड करके फसल रोगों की पहचान करें।"
+      },
+      "fertilizerRecommendation": {
+        "title": "उर्वरक की सिफारिश",
+        "description": "अपनी फसलों और मिट्टी के लिए सर्वोत्तम उर्वरक खोजें।"
+      },
+      "locationCropGuidance": {
+        "title": "स्थान फसल मार्गदर्शन",
+        "description": "अपने स्थान के आधार पर उपयुक्त फसलें खोजें।"
+      },
+      "fairPriceMarketplace": {
+        "title": "उचित मूल्य बाज़ार",
+        "description": "अपने अनाज और उपज को उचित मूल्य पर बेचें।"
+      },
+      "marketplaceBoost": {
+        "title": "बाज़ार बूस्ट",
+        "description": "एआई के साथ अपनी बाज़ार लिस्टिंग को अनुकूलित करें।"
+      }
+    }
+  },
+  "SoilAnalysis": {
+    "title": "मिट्टी का विश्लेषण",
+    "subtitle": "विस्तृत विश्लेषण के लिए अपने मिट्टी परीक्षण के परिणाम दर्ज करें या अपलोड करें।",
+    "form": {
+      "title": "मिट्टी डेटा जमा करें",
+      "description": "पूर्ण विश्लेषण और फसल सिफारिशों के लिए अपनी मिट्टी, स्थान और जलवायु डेटा प्रदान करें।",
+      "uploadLabel": "परीक्षण परिणाम अपलोड करें (वैकल्पिक)",
+      "previewAlt": "मिट्टी रिपोर्ट का पूर्वावलोकन",
+      "uploadText": "अपनी मिट्टी रिपोर्ट की एक तस्वीर अपलोड करें।",
+      "selectFileButton": "फ़ाइल का चयन करें",
+      "orEnterManually": "या मैन्युअल रूप से दर्ज करें",
+      "phLabel": "पीएच स्तर",
+      "organicMatterLabel": "कार्बनिक पदार्थ (%)",
+      "nitrogenLabel": "नाइट्रोजन (पीपीएम)",
+      "phosphorusLabel": "फास्फोरस (पीपीएम)",
+      "potassiumLabel": "पोटेशियम (पीपीएम)",
+      "textureLabel": "मिट्टी की बनावट",
+      "texturePlaceholder": "जैसे, दोमट रेत",
+      "notesLabel": "अतिरिक्त नोट्स",
+      "notesPlaceholder": "कोई अन्य अवलोकन या विवरण...",
+      "locationAndClimate": "स्थान और जलवायु",
+      "locationLabel": "भौगोलिक स्थान",
+      "fetchingLocationButton": "प्राप्त हो रहा है...",
+      "useMyLocationButton": "मेरे स्थान का उपयोग करें",
+      "locationPlaceholder": "जैसे, सेंट्रल वैली, कैलिफोर्निया",
+      "climateLabel": "जलवायु की स्थिति",
+      "climatePlaceholder": "जैसे, गर्म, शुष्क ग्रीष्मकाल के साथ हल्की, गीली सर्दियाँ। औसत वर्षा 20 इंच।",
+      "submittingButton": "मिट्टी का विश्लेषण किया जा रहा है...",
+      "submitButton": "मिट्टी का विश्लेषण करें"
+    },
+    "results": {
+      "loadingTitle": "आपके मिट्टी के आंकड़ों का विश्लेषण किया जा रहा है...",
+      "loadingDescription": "हमारा एआई आपकी मिट्टी की रिपोर्ट तैयार कर रहा है।",
+      "title": "एआई मिट्टी विश्लेषण रिपोर्ट",
+      "nutrientBreakdown": "पोषक तत्वों का विश्लेषण",
+      "nutrientpH": "पीएच स्तर",
+      "nutrientNitrogen": "नाइट्रोजन",
+      "nutrientPhosphorus": "फास्फोरस",
+      "nutrientPotassium": "पोटेशियम",
+      "recommendations": "सिफारिशें",
+      "getCropSuggestionsButton": "फसल सुझाव प्राप्त करें"
+    },
+    "toast": {
+      "noDataTitle": "कोई डेटा प्रदान नहीं किया गया",
+      "noDataDescription": "कृपया एक मिट्टी रिपोर्ट अपलोड करें या कम से कम एक मुख्य पोषक तत्व फ़ील्ड भरें।",
+      "errorTitle": "त्रुटि",
+      "errorDescription": "मिट्टी डेटा का विश्लेषण करने में विफल। कृपया पुन: प्रयास करें।",
+      "geolocationNotSupportedTitle": "जियोलोकेशन समर्थित नहीं है",
+      "geolocationNotSupportedDescription": "आपका ब्राउज़र जियोलोकेशन का समर्थन नहीं करता है।",
+      "locationFoundTitle": "स्थान और जलवायु मिली",
+      "locationFoundDescription": "स्थान {locationName} पर सेट करें और जलवायु डेटा प्राप्त किया।",
+      "fetchLocationErrorTitle": "स्थान डेटा प्राप्त नहीं किया जा सका",
+      "fetchLocationErrorDescription": "हमें आपके निर्देशांक मिले लेकिन स्थान का नाम या जलवायु निर्धारित नहीं कर सके।",
+      "locationAccessDeniedTitle": "स्थान पहुंच अस्वीकृत",
+      "locationAccessDeniedDescription": "कृपया अपने ब्राउज़र सेटिंग्स में स्थान अनुमतियों को सक्षम करें।"
+    }
+  },
+  "CropRecommendation": {
+    "title": "एआई फसल सिफारिश",
+    "subtitle": "अपनी मिट्टी, स्थान और जलवायु के आधार पर उपयुक्त फसलों के लिए सुझाव प्राप्त करें।",
+    "form": {
+      "title": "खेत का विवरण",
+      "description": "अनुरूप फसल सिफारिशें प्राप्त करने के लिए अपने खेत के बारे में जानकारी प्रदान करें।",
+      "locationLabel": "भौगोलिक स्थान",
+      "locationPlaceholder": "जैसे, सेंट्रल वैली, कैलिफोर्निया",
+      "climateLabel": "जलवायु की स्थिति",
+      "climatePlaceholder": "जैसे, गर्म, शुष्क ग्रीष्मकाल के साथ हल्की, गीली सर्दियाँ। औसत वर्षा 20 इंच।",
+      "farmlandAreaLabel": "खेती की भूमि का क्षेत्र",
+      "farmlandAreaPlaceholder": "जैसे, 50",
+      "unitLabel": "इकाई",
+      "unitPlaceholder": "एक इकाई चुनें",
+      "acres": "एकड़",
+      "hectares": "हेक्टेयर",
+      "soilDetailsOptional": "मिट्टी का विवरण (वैकल्पिक)",
+      "phLabel": "पीएच स्तर",
+      "phPlaceholder": "जैसे, 6.5",
+      "nitrogenLabel": "नाइट्रोजन (पीपीएम)",
+      "nitrogenPlaceholder": "जैसे, 25",
+      "phosphorusLabel": "फास्फोरस (पीपीएम)",
+      "phosphorusPlaceholder": "जैसे, 50",
+      "potassiumLabel": "पोटेशियम (पीपीएम)",
+      "potassiumPlaceholder": "जैसे, 150",
+      "submittingButton": "सिफारिशें प्राप्त हो रही हैं...",
+      "submitButton": "सिफारिशें प्राप्त करें"
+    },
+    "results": {
+      "loadingTitle": "आपके डेटा का विश्लेषण किया जा रहा है...",
+      "loadingDescription": "हमारा एआई आपके लिए सबसे अच्छी फसलें ढूंढ रहा है।",
+      "title": "एआई-संचालित सिफारिशें",
+      "description": "यहां आपके खेत के विवरण के आधार पर शीर्ष फसल सुझाव और उनके अनुमानित बीज मूल्य दिए गए हैं।",
+      "tableCrop": "फसल",
+      "tableSeedPrice": "बीज मूल्य",
+      "idleTitle": "आपके परिणाम यहां दिखाई देंगे।",
+      "idleDescription": "शुरू करने के लिए फ़ॉर्म भरें।"
+    },
+    "toast": {
+      "errorTitle": "त्रुटि",
+      "errorDescription": "फसल सिफारिशें प्राप्त करने में विफल। कृपया पुन: प्रयास करें।"
+    }
+  },
+  "DiseaseIdentification": {
+    "title": "छवि-आधारित रोग की पहचान",
+    "subtitle": "एआई का उपयोग करके संभावित बीमारियों की पहचान करने के लिए फसल की एक तस्वीर अपलोड करें।",
+    "form": {
+      "title": "फसल की छवि प्रदान करें",
+      "description": "प्रभावित फसल की एक तस्वीर अपलोड करें या अपनी कैमरा का उपयोग करके एक छवि कैप्चर करें।",
+      "cropPreviewAlt": "फसल का पूर्वावलोकन",
+      "chooseAnotherImageButton": "दूसरी छवि चुनें",
+      "uploadTab": "फ़ाइल अपलोड करें",
+      "cameraTab": "कैमरा का उपयोग करें",
+      "uploadText": "अपलोड करने के लिए खींचें और छोड़ें या क्लिक करें",
+      "chooseImageButton": "छवि चुनें",
+      "cameraAccessDeniedTitle": "कैमरा पहुंच अस्वीकृत",
+      "cameraAccessDeniedDescription": "इस सुविधा का उपयोग करने के लिए कृपया कैमरा अनुमतियों को सक्षम करें।",
+      "takePictureButton": "तस्वीर खींचें",
+      "submittingButton": "छवि का विश्लेषण किया जा रहा है...",
+      "submitButton": "रोग की पहचान करें"
+    },
+    "results": {
+      "loadingTitle": "आपकी छवि का विश्लेषण किया जा रहा है...",
+      "loadingDescription": "हमारा एआई बीमारी के लक्षणों की तलाश कर रहा है।",
+      "title": "एआई निदान",
+      "likelyDisease": "संभावित रोग",
+      "confidenceLevel": "आत्मविश्वास स्तर",
+      "possibleSolutions": "संभावित समाधान"
+    },
+    "toast": {
+      "cameraNotSupportedTitle": "कैमरा समर्थित नहीं है",
+      "cameraNotSupportedDescription": "आपका ब्राउज़र कैमरा पहुंच का समर्थन नहीं करता है।",
+      "cameraAccessDeniedTitle": "कैमरा पहुंच अस्वीकृत",
+      "cameraAccessDeniedDescription": "इस सुविधा का उपयोग करने के लिए कृपया अपने ब्राउज़र सेटिंग्स में कैमरा अनुमतियों को सक्षम करें।",
+      "noImageSelectedTitle": "कोई छवि चयनित नहीं है",
+      "noImageSelectedDescription": "कृपया फसल की एक छवि अपलोड करें या कैप्चर करें।",
+      "errorTitle": "त्रुटि",
+      "errorDescription": "रोग की पहचान करने में विफल। कृपया पुन: प्रयास करें।"
+    }
+  },
+  "FertilizerRecommendation": {
+    "title": "एआई उर्वरक सिफारिश",
+    "subtitle": "अपनी विशिष्ट फसल और मिट्टी की स्थितियों के लिए अनुरूप उर्वरक सुझाव प्राप्त करें।",
+    "form": {
+      "title": "फसल और मिट्टी का विवरण",
+      "description": "इष्टतम उर्वरक सिफारिशें प्राप्त करने के लिए अपनी फसल और मिट्टी के बारे में जानकारी प्रदान करें।",
+      "cropTypeLabel": "फसल का प्रकार",
+      "cropTypePlaceholder": "जैसे, मक्का, गेहूं, टमाटर",
+      "uploadPhotoLabel": "फसल की तस्वीर अपलोड करें (वैकल्पिक)",
+      "uploadPhotoDescription": "हम छवि से मिट्टी की स्थितियों का अनुमान लगाने की कोशिश करेंगे।",
+      "cropPreviewAlt": "फसल रिपोर्ट का पूर्वावलोकन",
+      "uploadText": "अपनी फसल की एक तस्वीर अपलोड करें।",
+      "selectImageButton": "छवि चुनें",
+      "analyzingImage": "छवि का विश्लेषण किया जा रहा है...",
+      "analysisFailed": "छवि का विश्लेषण नहीं किया जा सका। कृपया मैन्युअल रूप से दर्ज करें।",
+      "soilConditionsLabel": "मिट्टी की स्थिति",
+      "soilConditionsPlaceholder": "जैसे, नाइट्रोजन में कम, 6.2 का पीएच, अच्छा जल निकासी",
+      "regionLabel": "भौगोलिक क्षेत्र",
+      "fetchingLocationButton": "प्राप्त हो रहा है...",
+      "useMyLocationButton": "मेरे स्थान का उपयोग करें",
+      "regionPlaceholder": "जैसे, मिडवेस्ट, यूएसए",
+      "submittingButton": "विश्लेषण किया जा रहा है...",
+      "submitButton": "उर्वरकों की सिफारिश करें"
+    },
+    "results": {
+      "loadingTitle": "सिफारिशों की गणना की जा रही है...",
+      "loadingDescription": "हमारा एआई आपके लिए सुझावों को अनुकूलित कर रहा है।",
+      "title": "उर्वरक योजना",
+      "recommendations": "सिफारिशें",
+      "reasoning": "तर्क"
+    },
+    "toast": {
+      "imageAnalyzedTitle": "छवि का विश्लेषण किया गया",
+      "imageAnalyzedDescription": "अनुमानित मिट्टी की स्थितियों को भर दिया गया है।",
+      "analysisFailedTitle": "विश्लेषण विफल",
+      "analysisFailedDescription": "छवि से मिट्टी की स्थितियों का अनुमान नहीं लगाया जा सका।",
+      "errorTitle": "त्रुटि",
+      "errorDescription": "उर्वरक सिफारिशें प्राप्त करने में विफल। कृपया पुन: प्रयास करें।",
+      "geolocationNotSupportedTitle": "जियोलोकेशन समर्थित नहीं है",
+      "geolocationNotSupportedDescription": "आपका ब्राउज़र जियोलोकेशन का समर्थन नहीं करता है।",
+      "locationFoundTitle": "स्थान मिला",
+      "locationFoundDescription": "क्षेत्र को {locationName} पर सेट करें।",
+      "fetchLocationErrorTitle": "स्थान प्राप्त नहीं किया जा सका",
+      "fetchLocationErrorDescription": "हम आपके निर्देशांक से आपके स्थान का नाम निर्धारित नहीं कर सके।",
+      "locationAccessDeniedTitle": "स्थान पहुंच अस्वीकृत",
+      "locationAccessDeniedDescription": "कृपया अपने ब्राउज़र सेटिंग्स में स्थान अनुमतियों को सक्षम करें।"
+    }
+  },
+  "CropGuidance": {
+    "title": "स्थान-आधारित फसल मार्गदर्शन",
+    "subtitle": "पता करें कि कौन सी फसलें आपके विशिष्ट भौगोलिक स्थान के लिए सबसे उपयुक्त हैं।",
+    "yourLocation": "आपका स्थान",
+    "locationDescription": "हम उपयुक्त फसलों पर मार्गदर्शन प्रदान करने के लिए आपके स्थान का उपयोग करते हैं।",
+    "idleText": "अपने क्षेत्र के लिए फसल मार्गदर्शन प्राप्त करने के लिए बटन पर क्लिक करें।",
+    "getMyLocationButton": "मेरा स्थान प्राप्त करें",
+    "fetchingLocation": "आपका स्थान प्राप्त किया जा रहा है...",
+    "identifyingLocation": "आपके स्थान की पहचान की जा रही है...",
+    "tryAgainButton": "पुनः प्रयास करें",
+    "locationFound": "स्थान मिला",
+    "unknownLocation": "अज्ञात स्थान",
+    "lat": "अक्षांश",
+    "lon": "देशांतर",
+    "suggestionsTitle": "आपके क्षेत्र के लिए फसल सुझाव",
+    "suggestionsDescription": "आपके निर्देशांक के लिए सामान्य जलवायु डेटा के आधार पर।",
+    "geolocationNotSupported": "जियोलोकेशन आपके ब्राउज़र द्वारा समर्थित नहीं है।",
+    "unableToRetrieveLocation": "आपका स्थान पुनर्प्राप्त करने में असमर्थ। कृपया सुनिश्चित करें कि स्थान सेवाएं सक्षम हैं।",
+    "crops": {
+      "corn": {
+        "name": "मक्का",
+        "description": "गर्म मौसम में भरपूर धूप के साथ पनपता है। गर्म ग्रीष्मकाल वाले क्षेत्रों के लिए अच्छा है।"
+      },
+      "soybeans": {
+        "name": "सोयाबीन",
+        "description": "विभिन्न जलवायु के अनुकूल, लेकिन गर्म, नम स्थितियों को प्राथमिकता देता है।"
+      },
+      "wheat": {
+        "name": "गेहूं",
+        "description": "आमतौर पर समशीतोष्ण जलवायु में उगाया जाता है, विविधता के आधार पर शरद ऋतु या वसंत में लगाया जा सकता है।"
+      },
+      "potatoes": {
+        "name": "आलू",
+        "description": "एक ठंडे मौसम की फसल जो कई क्षेत्रों के अनुकूल है।"
+      }
+    },
+    "toast": {
+      "fetchNameErrorTitle": "स्थान का नाम प्राप्त नहीं किया जा सका",
+      "fetchNameErrorDescription": "हमें आपके निर्देशांक मिले लेकिन स्थान का नाम निर्धारित नहीं कर सके।"
+    }
+  },
+  "Marketplace": {
+    "title": "उचित मूल्य बाज़ार",
+    "subtitle": "किसानों से सीधे अनाज और उपज खरीदें और बेचें।",
+    "soldBy": "द्वारा बेचा गया",
+    "addToCartButton": "कार्ट में डालें"
+  },
+  "MarketplaceBoost": {
+    "title": "बाज़ार प्रस्ताव बूस्ट",
+    "subtitle": "अपने बाज़ार लिस्टिंग की आकर्षण का विश्लेषण और सुधार करने के लिए एआई का उपयोग करें।",
+    "form": {
+      "title": "प्रस्ताव का विवरण",
+      "description": "एआई-संचालित आकर्षण स्कोर और सुझाव प्राप्त करने के लिए अपने प्रस्ताव का विवरण प्रदान करें।",
+      "adCopyLabel": "विज्ञापन प्रति / शीर्षक",
+      "adCopyPlaceholder": "जैसे, ताजा, जैविक गेहूं - आज काटा गया!",
+      "productDescriptionLabel": "उत्पाद विवरण",
+      "productDescriptionPlaceholder": "अपने उत्पाद का विस्तार से वर्णन करें। गुणवत्ता, मूल और अद्वितीय विक्रय बिंदुओं का उल्लेख करें।",
+      "targetAudienceLabel": "लक्षित दर्शक",
+      "targetAudiencePlaceholder": "जैसे, स्थानीय बेकरी, स्वास्थ्य के प्रति जागरूक परिवार",
+      "submittingButton": "प्रस्ताव का विश्लेषण किया जा रहा है...",
+      "submitButton": "प्रस्ताव को बढ़ावा दें"
+    },
+    "results": {
+      "loadingTitle": "आकर्षण को मापा जा रहा है...",
+      "loadingDescription": "हमारा एआई आपकी लिस्टिंग को स्कोर कर रहा है और सुधार ढूंढ रहा है।",
+      "title": "एआई विश्लेषण पूरा हुआ",
+      "attractivenessScore": "आकर्षण स्कोर",
+      "suggestions": "सुधार सुझाव"
+    },
+    "toast": {
+      "errorTitle": "त्रुटि",
+      "errorDescription": "प्रस्ताव का विश्लेषण करने में विफल। कृपया पुन: प्रयास करें।"
+    }
+  },
+  "Settings": {
+    "title": "समायोजन",
+    "subtitle": "अपना खाता और प्राथमिकताएं प्रबंधित करें।",
+    "language": {
+      "title": "भाषा",
+      "description": "अपनी पसंदीदा भाषा चुनें।",
+      "selectPlaceholder": "भाषा चुनें",
+      "english": "अंग्रेज़ी",
+      "spanish": "स्पेनिश",
+      "french": "फ्रेंच",
+      "german": "जर्मन",
+      "hindi": "हिंदी",
+      "marathi": "मराठी",
+      "malayalam": "मलयालम",
+      "mandarin": "मंदारिन"
+    },
+    "appearance": {
+      "title": "दिखावट",
+      "description": "लाइट और डार्क मोड के बीच स्विच करें।",
+      "light": "लाइट",
+      "dark": "डार्क"
+    },
+    "account": {
+      "title": "खाता",
+      "description": "लॉग इन या लॉग आउट करके अपना सत्र प्रबंधित करें।",
+      "login": "लॉग इन करें",
+      "logout": "लॉग आउट करें"
+    }
+  },
+  "Auth": {
+    "title": "एग्रीअसिस्ट में आपका स्वागत है",
+    "subtitle": "आधुनिक खेती में आपका बुद्धिमान साथी।",
+    "loginTab": "लॉग इन करें",
+    "signUpTab": "साइन अप करें",
+    "emailLabel": "ईमेल",
+    "emailPlaceholder": "नाम@उदाहरण.कॉम",
+    "passwordLabel": "पासवर्ड",
+    "loginButton": "लॉग इन करें",
+    "fullNameLabel": "पूरा नाम",
+    "fullNamePlaceholder": "जॉन डो",
+    "signUpButton": "साइन अप करें"
+  },
+  "Home": {
+    "loading": "आपके अनुभव को लोड किया जा रहा है..."
+  }
+}

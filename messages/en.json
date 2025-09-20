@@ -1,0 +1,351 @@
+{
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "soilAnalysis": "Soil Analysis",
+    "cropRecommendation": "Crop Recommendation",
+    "diseaseId": "Disease ID",
+    "fertilizerRecs": "Fertilizer Recs",
+    "cropGuidance": "Crop Guidance",
+    "marketplace": "Marketplace",
+    "marketplaceBoost": "Marketplace Boost",
+    "settings": "Settings"
+  },
+  "Dashboard": {
+    "title": "Welcome to AgriAssist",
+    "subtitle": "Your intelligent partner in modern farming.",
+    "features": {
+      "soilAnalysis": {
+        "title": "Soil Analysis",
+        "description": "Upload soil test results for detailed analysis."
+      },
+      "cropRecommendation": {
+        "title": "Crop Recommendation",
+        "description": "Get AI-powered crop suggestions for your land."
+      },
+      "diseaseIdentification": {
+        "title": "Disease Identification",
+        "description": "Identify crop diseases by uploading a photo."
+      },
+      "fertilizerRecommendation": {
+        "title": "Fertilizer Recommendation",
+        "description": "Find the best fertilizers for your crops and soil."
+      },
+      "locationCropGuidance": {
+        "title": "Location Crop Guidance",
+        "description": "Discover suitable crops based on your location."
+      },
+      "fairPriceMarketplace": {
+        "title": "Fair Price Marketplace",
+        "description": "Sell your grains and produce at a fair price."
+      },
+      "marketplaceBoost": {
+        "title": "Marketplace Boost",
+        "description": "Optimize your marketplace listings with AI."
+      }
+    }
+  },
+  "SoilAnalysis": {
+    "title": "Soil Analysis",
+    "subtitle": "Enter or upload your soil test results for a detailed breakdown.",
+    "form": {
+      "title": "Submit Soil Data",
+      "description": "Provide your soil, location, and climate data for a complete analysis and crop recommendations.",
+      "uploadLabel": "Upload Test Results (Optional)",
+      "previewAlt": "Soil report preview",
+      "uploadText": "Upload a photo of your soil report.",
+      "selectFileButton": "Select File",
+      "orEnterManually": "Or enter manually",
+      "phLabel": "pH Level",
+      "organicMatterLabel": "Organic Matter (%)",
+      "nitrogenLabel": "Nitrogen (ppm)",
+      "phosphorusLabel": "Phosphorus (ppm)",
+      "potassiumLabel": "Potassium (ppm)",
+      "textureLabel": "Soil Texture",
+      "texturePlaceholder": "e.g., Loamy Sand",
+      "notesLabel": "Additional Notes",
+      "notesPlaceholder": "Any other observations or details...",
+      "locationAndClimate": "Location & Climate",
+      "locationLabel": "Geographical Location",
+      "fetchingLocationButton": "Fetching...",
+      "useMyLocationButton": "Use my location",
+      "locationPlaceholder": "e.g., Central Valley, California",
+      "climateLabel": "Climate Conditions",
+      "climatePlaceholder": "e.g., Hot, dry summers with mild, wet winters. Average rainfall 20 inches.",
+      "submittingButton": "Analyzing Soil...",
+      "submitButton": "Analyze Soil"
+    },
+    "results": {
+      "loadingTitle": "Analyzing your soil data...",
+      "loadingDescription": "Our AI is preparing your soil report.",
+      "title": "AI Soil Analysis Report",
+      "nutrientBreakdown": "Nutrient Breakdown",
+      "nutrientpH": "pH Level",
+      "nutrientNitrogen": "Nitrogen",
+      "nutrientPhosphorus": "Phosphorus",
+      "nutrientPotassium": "Potassium",
+      "recommendations": "Recommendations",
+      "getCropSuggestionsButton": "Get Crop Suggestions"
+    },
+    "toast": {
+      "noDataTitle": "No data provided",
+      "noDataDescription": "Please upload a soil report or fill in at least one of the main nutrient fields.",
+      "errorTitle": "Error",
+      "errorDescription": "Failed to analyze soil data. Please try again.",
+      "geolocationNotSupportedTitle": "Geolocation Not Supported",
+      "geolocationNotSupportedDescription": "Your browser does not support geolocation.",
+      "locationFoundTitle": "Location & Climate Found",
+      "locationFoundDescription": "Set location to {locationName} and fetched climate data.",
+      "fetchLocationErrorTitle": "Could not fetch location data",
+      "fetchLocationErrorDescription": "We found your coordinates but could not determine the location name or climate.",
+      "locationAccessDeniedTitle": "Location Access Denied",
+      "locationAccessDeniedDescription": "Please enable location permissions in your browser settings."
+    }
+  },
+  "CropRecommendation": {
+    "title": "AI Crop Recommendation",
+    "subtitle": "Get suggestions for suitable crops based on your soil, location, and climate.",
+    "form": {
+      "title": "Farm Details",
+      "description": "Provide information about your farm to get tailored crop recommendations.",
+      "locationLabel": "Geographical Location",
+      "locationPlaceholder": "e.g., Central Valley, California",
+      "climateLabel": "Climate Conditions",
+      "climatePlaceholder": "e.g., Hot, dry summers with mild, wet winters. Average rainfall 20 inches.",
+      "farmlandAreaLabel": "Farmland Area",
+      "farmlandAreaPlaceholder": "e.g., 50",
+      "unitLabel": "Unit",
+      "unitPlaceholder": "Select a unit",
+      "acres": "Acres",
+      "hectares": "Hectares",
+      "soilDetailsOptional": "Soil Details (Optional)",
+      "phLabel": "pH Level",
+      "phPlaceholder": "e.g., 6.5",
+      "nitrogenLabel": "Nitrogen (ppm)",
+      "nitrogenPlaceholder": "e.g., 25",
+      "phosphorusLabel": "Phosphorus (ppm)",
+      "phosphorusPlaceholder": "e.g., 50",
+      "potassiumLabel": "Potassium (ppm)",
+      "potassiumPlaceholder": "e.g., 150",
+      "submittingButton": "Getting Recommendations...",
+      "submitButton": "Get Recommendations"
+    },
+    "results": {
+      "loadingTitle": "Analyzing your data...",
+      "loadingDescription": "Our AI is finding the best crops for you.",
+      "title": "AI-Powered Recommendations",
+      "description": "Here are the top crop suggestions and their estimated seed prices based on your farm's details.",
+      "tableCrop": "Crop",
+      "tableSeedPrice": "Seed Price",
+      "idleTitle": "Your results will appear here.",
+      "idleDescription": "Fill out the form to get started."
+    },
+    "toast": {
+      "errorTitle": "Error",
+      "errorDescription": "Failed to get crop recommendations. Please try again."
+    }
+  },
+  "DiseaseIdentification": {
+    "title": "Image-Based Disease Identification",
+    "subtitle": "Upload a photo of a crop to identify potential diseases using AI.",
+    "form": {
+      "title": "Provide Crop Image",
+      "description": "Upload a photo or use your camera to capture an image of the affected crop.",
+      "cropPreviewAlt": "Crop preview",
+      "chooseAnotherImageButton": "Choose another image",
+      "uploadTab": "Upload File",
+      "cameraTab": "Use Camera",
+      "uploadText": "Drag & drop or click to upload",
+      "chooseImageButton": "Choose Image",
+      "cameraAccessDeniedTitle": "Camera Access Denied",
+      "cameraAccessDeniedDescription": "Please enable camera permissions to use this feature.",
+      "takePictureButton": "Take Picture",
+      "submittingButton": "Analyzing Image...",
+      "submitButton": "Identify Disease"
+    },
+    "results": {
+      "loadingTitle": "Analyzing your image...",
+      "loadingDescription": "Our AI is looking for signs of disease.",
+      "title": "AI Diagnosis",
+      "likelyDisease": "Likely Disease",
+      "confidenceLevel": "Confidence Level",
+      "possibleSolutions": "Possible Solutions"
+    },
+    "toast": {
+      "cameraNotSupportedTitle": "Camera Not Supported",
+      "cameraNotSupportedDescription": "Your browser does not support camera access.",
+      "cameraAccessDeniedTitle": "Camera Access Denied",
+      "cameraAccessDeniedDescription": "Please enable camera permissions in your browser settings to use this feature.",
+      "noImageSelectedTitle": "No image selected",
+      "noImageSelectedDescription": "Please upload or capture an image of the crop.",
+      "errorTitle": "Error",
+      "errorDescription": "Failed to identify disease. Please try again."
+    }
+  },
+  "FertilizerRecommendation": {
+    "title": "AI Fertilizer Recommendation",
+    "subtitle": "Get tailored fertilizer suggestions for your specific crop and soil conditions.",
+    "form": {
+      "title": "Crop & Soil Details",
+      "description": "Provide information about your crop and soil to get optimal fertilizer recommendations.",
+      "cropTypeLabel": "Crop Type",
+      "cropTypePlaceholder": "e.g., Corn, Wheat, Tomatoes",
+      "uploadPhotoLabel": "Upload Crop Photo (Optional)",
+      "uploadPhotoDescription": "We'll try to infer soil conditions from the image.",
+      "cropPreviewAlt": "Crop report preview",
+      "uploadText": "Upload a photo of your crop.",
+      "selectImageButton": "Select Image",
+      "analyzingImage": "Analyzing image...",
+      "analysisFailed": "Could not analyze image. Please enter manually.",
+      "soilConditionsLabel": "Soil Conditions",
+      "soilConditionsPlaceholder": "e.g., Low in nitrogen, pH of 6.2, good drainage",
+      "regionLabel": "Geographical Region",
+      "fetchingLocationButton": "Fetching...",
+      "useMyLocationButton": "Use my location",
+      "regionPlaceholder": "e.g., Midwest, USA",
+      "submittingButton": "Analyzing...",
+      "submitButton": "Recommend Fertilizers"
+    },
+    "results": {
+      "loadingTitle": "Calculating recommendations...",
+      "loadingDescription": "Our AI is tailoring suggestions for you.",
+      "title": "Fertilizer Plan",
+      "recommendations": "Recommendations",
+      "reasoning": "Reasoning"
+    },
+    "toast": {
+      "imageAnalyzedTitle": "Image Analyzed",
+      "imageAnalyzedDescription": "Inferred soil conditions have been filled in.",
+      "analysisFailedTitle": "Analysis Failed",
+      "analysisFailedDescription": "Could not infer soil conditions from the image.",
+      "errorTitle": "Error",
+      "errorDescription": "Failed to get fertilizer recommendations. Please try again.",
+      "geolocationNotSupportedTitle": "Geolocation Not Supported",
+      "geolocationNotSupportedDescription": "Your browser does not support geolocation.",
+      "locationFoundTitle": "Location Found",
+      "locationFoundDescription": "Set region to {locationName}.",
+      "fetchLocationErrorTitle": "Could not fetch location",
+      "fetchLocationErrorDescription": "We could not determine your location name from your coordinates.",
+      "locationAccessDeniedTitle": "Location Access Denied",
+      "locationAccessDeniedDescription": "Please enable location permissions in your browser settings."
+    }
+  },
+  "CropGuidance": {
+    "title": "Location-Based Crop Guidance",
+    "subtitle": "Discover which crops are best suited for your specific geographic location.",
+    "yourLocation": "Your Location",
+    "locationDescription": "We use your location to provide guidance on suitable crops.",
+    "idleText": "Click the button to get crop guidance for your area.",
+    "getMyLocationButton": "Get My Location",
+    "fetchingLocation": "Fetching your location...",
+    "identifyingLocation": "Identifying your location...",
+    "tryAgainButton": "Try Again",
+    "locationFound": "Location Found",
+    "unknownLocation": "Unknown Location",
+    "lat": "Lat",
+    "lon": "Lon",
+    "suggestionsTitle": "Crop Suggestions for Your Area",
+    "suggestionsDescription": "Based on general climate data for your coordinates.",
+    "geolocationNotSupported": "Geolocation is not supported by your browser.",
+    "unableToRetrieveLocation": "Unable to retrieve your location. Please ensure location services are enabled.",
+    "crops": {
+      "corn": {
+        "name": "Corn (Maize)",
+        "description": "Thrives in warm weather with plenty of sunshine. Good for regions with hot summers."
+      },
+      "soybeans": {
+        "name": "Soybeans",
+        "description": "Adaptable to various climates, but prefers warm, moist conditions."
+      },
+      "wheat": {
+        "name": "Wheat",
+        "description": "Typically grown in temperate climates, can be planted in fall or spring depending on the variety."
+      },
+      "potatoes": {
+        "name": "Potatoes",
+        "description": "A cool-weather crop that is adaptable to many regions."
+      }
+    },
+    "toast": {
+      "fetchNameErrorTitle": "Could not fetch location name",
+      "fetchNameErrorDescription": "We found your coordinates but could not determine the location name."
+    }
+  },
+  "Marketplace": {
+    "title": "Fair Price Marketplace",
+    "subtitle": "Buy and sell grains and produce directly from farmers.",
+    "soldBy": "Sold by",
+    "addToCartButton": "Add to Cart"
+  },
+  "MarketplaceBoost": {
+    "title": "Marketplace Offer Boost",
+    "subtitle": "Use AI to analyze and improve the attractiveness of your marketplace listings.",
+    "form": {
+      "title": "Offer Details",
+      "description": "Provide your offer details to get an AI-powered attractiveness score and suggestions.",
+      "adCopyLabel": "Ad Copy / Title",
+      "adCopyPlaceholder": "e.g., Fresh, Organic Wheat - Harvested Today!",
+      "productDescriptionLabel": "Product Description",
+      "productDescriptionPlaceholder": "Describe your product in detail. Mention quality, origin, and unique selling points.",
+      "targetAudienceLabel": "Target Audience",
+      "targetAudiencePlaceholder": "e.g., Local bakeries, health-conscious families",
+      "submittingButton": "Analyzing Offer...",
+      "submitButton": "Boost Offer"
+    },
+    "results": {
+      "loadingTitle": "Measuring attractiveness...",
+      "loadingDescription": "Our AI is scoring your listing and finding improvements.",
+      "title": "AI Analysis Complete",
+      "attractivenessScore": "Attractiveness Score",
+      "suggestions": "Improvement Suggestions"
+    },
+    "toast": {
+      "errorTitle": "Error",
+      "errorDescription": "Failed to analyze the offer. Please try again."
+    }
+  },
+  "Settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account and preferences.",
+    "language": {
+      "title": "Language",
+      "description": "Choose your preferred language.",
+      "selectPlaceholder": "Select language",
+      "english": "English",
+      "spanish": "Spanish",
+      "french": "French",
+      "german": "German",
+      "hindi": "Hindi",
+      "marathi": "Marathi",
+      "malayalam": "Malayalam",
+      "mandarin": "Mandarin"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "description": "Switch between light and dark mode.",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "account": {
+      "title": "Account",
+      "description": "Manage your session by logging in or out.",
+      "login": "Login",
+      "logout": "Logout"
+    }
+  },
+  "Auth": {
+    "title": "Welcome to AgriAssist",
+    "subtitle": "Your intelligent partner in modern farming.",
+    "loginTab": "Login",
+    "signUpTab": "Sign Up",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "passwordLabel": "Password",
+    "loginButton": "Login",
+    "fullNameLabel": "Full Name",
+    "fullNamePlaceholder": "John Doe",
+    "signUpButton": "Sign Up"
+  },
+  "Home": {
+    "loading": "Loading your experience..."
+  }
+}

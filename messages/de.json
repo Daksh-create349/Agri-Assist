@@ -1,0 +1,351 @@
+{
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "soilAnalysis": "Bodenanalyse",
+    "cropRecommendation": "Ernteempfehlung",
+    "diseaseId": "Krankheits-ID",
+    "fertilizerRecs": "Düngemittel-Empf.",
+    "cropGuidance": "Ernteanleitung",
+    "marketplace": "Marktplatz",
+    "marketplaceBoost": "Marktplatz-Boost",
+    "settings": "Einstellungen"
+  },
+  "Dashboard": {
+    "title": "Willkommen bei AgriAssist",
+    "subtitle": "Ihr intelligenter Partner in der modernen Landwirtschaft.",
+    "features": {
+      "soilAnalysis": {
+        "title": "Bodenanalyse",
+        "description": "Laden Sie Bodentestergebnisse für eine detaillierte Analyse hoch."
+      },
+      "cropRecommendation": {
+        "title": "Ernteempfehlung",
+        "description": "Erhalten Sie KI-gestützte Erntevorschläge für Ihr Land."
+      },
+      "diseaseIdentification": {
+        "title": "Krankheitsidentifikation",
+        "description": "Identifizieren Sie Pflanzenkrankheiten durch Hochladen eines Fotos."
+      },
+      "fertilizerRecommendation": {
+        "title": "Düngemittelempfehlung",
+        "description": "Finden Sie die besten Düngemittel für Ihre Pflanzen und Ihren Boden."
+      },
+      "locationCropGuidance": {
+        "title": "Standortbezogene Ernteanleitung",
+        "description": "Entdecken Sie geeignete Pflanzen basierend auf Ihrem Standort."
+      },
+      "fairPriceMarketplace": {
+        "title": "Marktplatz mit fairen Preisen",
+        "description": "Verkaufen Sie Ihr Getreide und Ihre Produkte zu einem fairen Preis."
+      },
+      "marketplaceBoost": {
+        "title": "Marktplatz-Boost",
+        "description": "Optimieren Sie Ihre Marktplatzeinträge mit KI."
+      }
+    }
+  },
+  "SoilAnalysis": {
+    "title": "Bodenanalyse",
+    "subtitle": "Geben Sie Ihre Bodentestergebnisse ein oder laden Sie sie für eine detaillierte Aufschlüsselung hoch.",
+    "form": {
+      "title": "Bodendaten einreichen",
+      "description": "Stellen Sie Ihre Boden-, Standort- und Klimadaten für eine vollständige Analyse und Ernteempfehlungen bereit.",
+      "uploadLabel": "Testergebnisse hochladen (optional)",
+      "previewAlt": "Vorschau des Bodenberichts",
+      "uploadText": "Laden Sie ein Foto Ihres Bodenberichts hoch.",
+      "selectFileButton": "Datei auswählen",
+      "orEnterManually": "Oder manuell eingeben",
+      "phLabel": "pH-Wert",
+      "organicMatterLabel": "Organische Substanz (%)",
+      "nitrogenLabel": "Stickstoff (ppm)",
+      "phosphorusLabel": "Phosphor (ppm)",
+      "potassiumLabel": "Kalium (ppm)",
+      "textureLabel": "Bodenbeschaffenheit",
+      "texturePlaceholder": "z.B. lehmiger Sand",
+      "notesLabel": "Zusätzliche Anmerkungen",
+      "notesPlaceholder": "Weitere Beobachtungen oder Details...",
+      "locationAndClimate": "Standort & Klima",
+      "locationLabel": "Geografischer Standort",
+      "fetchingLocationButton": "Wird abgerufen...",
+      "useMyLocationButton": "Meinen Standort verwenden",
+      "locationPlaceholder": "z.B. Central Valley, Kalifornien",
+      "climateLabel": "Klimabedingungen",
+      "climatePlaceholder": "z.B. Heiße, trockene Sommer mit milden, feuchten Wintern. Durchschnittlicher Niederschlag 20 Zoll.",
+      "submittingButton": "Boden wird analysiert...",
+      "submitButton": "Boden analysieren"
+    },
+    "results": {
+      "loadingTitle": "Ihre Bodendaten werden analysiert...",
+      "loadingDescription": "Unsere KI bereitet Ihren Bodenbericht vor.",
+      "title": "KI-Bodenanalysebericht",
+      "nutrientBreakdown": "Nährstoffaufschlüsselung",
+      "nutrientpH": "pH-Wert",
+      "nutrientNitrogen": "Stickstoff",
+      "nutrientPhosphorus": "Phosphor",
+      "nutrientPotassium": "Kalium",
+      "recommendations": "Empfehlungen",
+      "getCropSuggestionsButton": "Erntevorschläge erhalten"
+    },
+    "toast": {
+      "noDataTitle": "Keine Daten angegeben",
+      "noDataDescription": "Bitte laden Sie einen Bodenbericht hoch oder füllen Sie mindestens eines der Hauptnährstofffelder aus.",
+      "errorTitle": "Fehler",
+      "errorDescription": "Bodendaten konnten nicht analysiert werden. Bitte versuchen Sie es erneut.",
+      "geolocationNotSupportedTitle": "Geolocation nicht unterstützt",
+      "geolocationNotSupportedDescription": "Ihr Browser unterstützt keine Geolocation.",
+      "locationFoundTitle": "Standort & Klima gefunden",
+      "locationFoundDescription": "Standort auf {locationName} gesetzt und Klimadaten abgerufen.",
+      "fetchLocationErrorTitle": "Standortdaten konnten nicht abgerufen werden",
+      "fetchLocationErrorDescription": "Wir haben Ihre Koordinaten gefunden, konnten aber den Standortnamen oder das Klima nicht bestimmen.",
+      "locationAccessDeniedTitle": "Standortzugriff verweigert",
+      "locationAccessDeniedDescription": "Bitte aktivieren Sie die Standortberechtigungen in Ihren Browsereinstellungen."
+    }
+  },
+  "CropRecommendation": {
+    "title": "KI-Ernteempfehlung",
+    "subtitle": "Erhalten Sie Vorschläge für geeignete Pflanzen basierend auf Ihrem Boden, Standort und Klima.",
+    "form": {
+      "title": "Betriebsdetails",
+      "description": "Geben Sie Informationen zu Ihrem Betrieb an, um maßgeschneiderte Ernteempfehlungen zu erhalten.",
+      "locationLabel": "Geografischer Standort",
+      "locationPlaceholder": "z.B. Central Valley, Kalifornien",
+      "climateLabel": "Klimabedingungen",
+      "climatePlaceholder": "z.B. Heiße, trockene Sommer mit milden, feuchten Wintern. Durchschnittlicher Niederschlag 20 Zoll.",
+      "farmlandAreaLabel": "Ackerlandfläche",
+      "farmlandAreaPlaceholder": "z.B. 50",
+      "unitLabel": "Einheit",
+      "unitPlaceholder": "Wählen Sie eine Einheit",
+      "acres": "Acres",
+      "hectares": "Hektar",
+      "soilDetailsOptional": "Bodendetails (optional)",
+      "phLabel": "pH-Wert",
+      "phPlaceholder": "z.B. 6.5",
+      "nitrogenLabel": "Stickstoff (ppm)",
+      "nitrogenPlaceholder": "z.B. 25",
+      "phosphorusLabel": "Phosphor (ppm)",
+      "phosphorusPlaceholder": "z.B. 50",
+      "potassiumLabel": "Kalium (ppm)",
+      "potassiumPlaceholder": "z.B. 150",
+      "submittingButton": "Empfehlungen werden abgerufen...",
+      "submitButton": "Empfehlungen erhalten"
+    },
+    "results": {
+      "loadingTitle": "Ihre Daten werden analysiert...",
+      "loadingDescription": "Unsere KI findet die besten Pflanzen für Sie.",
+      "title": "KI-gestützte Empfehlungen",
+      "description": "Hier sind die Top-Erntevorschläge und ihre geschätzten Saatgutpreise basierend auf den Details Ihres Betriebs.",
+      "tableCrop": "Pflanze",
+      "tableSeedPrice": "Saatgutpreis",
+      "idleTitle": "Ihre Ergebnisse werden hier angezeigt.",
+      "idleDescription": "Füllen Sie das Formular aus, um zu beginnen."
+    },
+    "toast": {
+      "errorTitle": "Fehler",
+      "errorDescription": "Ernteempfehlungen konnten nicht abgerufen werden. Bitte versuchen Sie es erneut."
+    }
+  },
+  "DiseaseIdentification": {
+    "title": "Bildbasierte Krankheitsidentifikation",
+    "subtitle": "Laden Sie ein Foto einer Pflanze hoch, um potenzielle Krankheiten mithilfe von KI zu identifizieren.",
+    "form": {
+      "title": "Pflanzenbild bereitstellen",
+      "description": "Laden Sie ein Foto hoch oder verwenden Sie Ihre Kamera, um ein Bild der betroffenen Pflanze aufzunehmen.",
+      "cropPreviewAlt": "Vorschau der Pflanze",
+      "chooseAnotherImageButton": "Anderes Bild wählen",
+      "uploadTab": "Datei hochladen",
+      "cameraTab": "Kamera verwenden",
+      "uploadText": "Drag & Drop oder klicken Sie zum Hochladen",
+      "chooseImageButton": "Bild auswählen",
+      "cameraAccessDeniedTitle": "Kamerazugriff verweigert",
+      "cameraAccessDeniedDescription": "Bitte aktivieren Sie die Kameraberechtigungen, um diese Funktion zu nutzen.",
+      "takePictureButton": "Bild aufnehmen",
+      "submittingButton": "Bild wird analysiert...",
+      "submitButton": "Krankheit identifizieren"
+    },
+    "results": {
+      "loadingTitle": "Ihr Bild wird analysiert...",
+      "loadingDescription": "Unsere KI sucht nach Anzeichen von Krankheiten.",
+      "title": "KI-Diagnose",
+      "likelyDisease": "Wahrscheinliche Krankheit",
+      "confidenceLevel": "Konfidenzniveau",
+      "possibleSolutions": "Mögliche Lösungen"
+    },
+    "toast": {
+      "cameraNotSupportedTitle": "Kamera nicht unterstützt",
+      "cameraNotSupportedDescription": "Ihr Browser unterstützt keinen Kamerazugriff.",
+      "cameraAccessDeniedTitle": "Kamerazugriff verweigert",
+      "cameraAccessDeniedDescription": "Bitte aktivieren Sie die Kameraberechtigungen in Ihren Browsereinstellungen, um diese Funktion zu nutzen.",
+      "noImageSelectedTitle": "Kein Bild ausgewählt",
+      "noImageSelectedDescription": "Bitte laden Sie ein Bild der Pflanze hoch oder nehmen Sie eines auf.",
+      "errorTitle": "Fehler",
+      "errorDescription": "Krankheit konnte nicht identifiziert werden. Bitte versuchen Sie es erneut."
+    }
+  },
+  "FertilizerRecommendation": {
+    "title": "KI-Düngemittelempfehlung",
+    "subtitle": "Erhalten Sie maßgeschneiderte Düngemittelvorschläge für Ihre spezifischen Pflanzen- und Bodenbedingungen.",
+    "form": {
+      "title": "Pflanzen- & Bodendetails",
+      "description": "Geben Sie Informationen zu Ihrer Pflanze und Ihrem Boden an, um optimale Düngemittelempfehlungen zu erhalten.",
+      "cropTypeLabel": "Pflanzenart",
+      "cropTypePlaceholder": "z.B. Mais, Weizen, Tomaten",
+      "uploadPhotoLabel": "Pflanzenfoto hochladen (optional)",
+      "uploadPhotoDescription": "Wir versuchen, die Bodenbedingungen aus dem Bild abzuleiten.",
+      "cropPreviewAlt": "Vorschau des Ernteberichts",
+      "uploadText": "Laden Sie ein Foto Ihrer Pflanze hoch.",
+      "selectImageButton": "Bild auswählen",
+      "analyzingImage": "Bild wird analysiert...",
+      "analysisFailed": "Bild konnte nicht analysiert werden. Bitte manuell eingeben.",
+      "soilConditionsLabel": "Bodenbedingungen",
+      "soilConditionsPlaceholder": "z.B. wenig Stickstoff, pH-Wert von 6,2, gute Drainage",
+      "regionLabel": "Geografische Region",
+      "fetchingLocationButton": "Wird abgerufen...",
+      "useMyLocationButton": "Meinen Standort verwenden",
+      "regionPlaceholder": "z.B. Mittlerer Westen, USA",
+      "submittingButton": "Wird analysiert...",
+      "submitButton": "Düngemittel empfehlen"
+    },
+    "results": {
+      "loadingTitle": "Empfehlungen werden berechnet...",
+      "loadingDescription": "Unsere KI erstellt maßgeschneiderte Vorschläge für Sie.",
+      "title": "Düngeplan",
+      "recommendations": "Empfehlungen",
+      "reasoning": "Begründung"
+    },
+    "toast": {
+      "imageAnalyzedTitle": "Bild analysiert",
+      "imageAnalyzedDescription": "Abgeleitete Bodenbedingungen wurden ausgefüllt.",
+      "analysisFailedTitle": "Analyse fehlgeschlagen",
+      "analysisFailedDescription": "Bodenbedingungen konnten nicht aus dem Bild abgeleitet werden.",
+      "errorTitle": "Fehler",
+      "errorDescription": "Düngemittelempfehlungen konnten nicht abgerufen werden. Bitte versuchen Sie es erneut.",
+      "geolocationNotSupportedTitle": "Geolocation nicht unterstützt",
+      "geolocationNotSupportedDescription": "Ihr Browser unterstützt keine Geolocation.",
+      "locationFoundTitle": "Standort gefunden",
+      "locationFoundDescription": "Region auf {locationName} gesetzt.",
+      "fetchLocationErrorTitle": "Standort konnte nicht abgerufen werden",
+      "fetchLocationErrorDescription": "Wir konnten Ihren Standortnamen nicht aus Ihren Koordinaten ermitteln.",
+      "locationAccessDeniedTitle": "Standortzugriff verweigert",
+      "locationAccessDeniedDescription": "Bitte aktivieren Sie die Standortberechtigungen in Ihren Browsereinstellungen."
+    }
+  },
+  "CropGuidance": {
+    "title": "Standortbezogene Ernteanleitung",
+    "subtitle": "Entdecken Sie, welche Pflanzen am besten für Ihren spezifischen geografischen Standort geeignet sind.",
+    "yourLocation": "Ihr Standort",
+    "locationDescription": "Wir verwenden Ihren Standort, um Anleitungen zu geeigneten Pflanzen zu geben.",
+    "idleText": "Klicken Sie auf die Schaltfläche, um Ernteanleitungen für Ihre Region zu erhalten.",
+    "getMyLocationButton": "Meinen Standort abrufen",
+    "fetchingLocation": "Ihr Standort wird abgerufen...",
+    "identifyingLocation": "Ihr Standort wird identifiziert...",
+    "tryAgainButton": "Erneut versuchen",
+    "locationFound": "Standort gefunden",
+    "unknownLocation": "Unbekannter Standort",
+    "lat": "Breite",
+    "lon": "Länge",
+    "suggestionsTitle": "Erntevorschläge für Ihre Region",
+    "suggestionsDescription": "Basierend auf allgemeinen Klimadaten für Ihre Koordinaten.",
+    "geolocationNotSupported": "Geolocation wird von Ihrem Browser nicht unterstützt.",
+    "unableToRetrieveLocation": "Ihr Standort konnte nicht abgerufen werden. Bitte stellen Sie sicher, dass die Standortdienste aktiviert sind.",
+    "crops": {
+      "corn": {
+        "name": "Mais (Zea mays)",
+        "description": "Gedeiht bei warmem Wetter mit viel Sonnenschein. Gut für Regionen mit heißen Sommern."
+      },
+      "soybeans": {
+        "name": "Sojabohnen",
+        "description": "Anpassungsfähig an verschiedene Klimazonen, bevorzugt jedoch warme, feuchte Bedingungen."
+      },
+      "wheat": {
+        "name": "Weizen",
+        "description": "Wird typischerweise in gemäßigten Klimazonen angebaut, kann je nach Sorte im Herbst oder Frühling gepflanzt werden."
+      },
+      "potatoes": {
+        "name": "Kartoffeln",
+        "description": "Eine kühlwetterliebende Pflanze, die an viele Regionen anpassungsfähig ist."
+      }
+    },
+    "toast": {
+      "fetchNameErrorTitle": "Standortname konnte nicht abgerufen werden",
+      "fetchNameErrorDescription": "Wir haben Ihre Koordinaten gefunden, konnten aber den Standortnamen nicht bestimmen."
+    }
+  },
+  "Marketplace": {
+    "title": "Marktplatz mit fairen Preisen",
+    "subtitle": "Kaufen und verkaufen Sie Getreide und Produkte direkt von Landwirten.",
+    "soldBy": "Verkauft von",
+    "addToCartButton": "In den Warenkorb"
+  },
+  "MarketplaceBoost": {
+    "title": "Marktplatz-Angebots-Boost",
+    "subtitle": "Nutzen Sie KI, um die Attraktivität Ihrer Marktplatzeinträge zu analysieren und zu verbessern.",
+    "form": {
+      "title": "Angebotsdetails",
+      "description": "Geben Sie Ihre Angebotsdetails an, um eine KI-gestützte Attraktivitätsbewertung und Vorschläge zu erhalten.",
+      "adCopyLabel": "Anzeigentext / Titel",
+      "adCopyPlaceholder": "z.B. Frischer, Bio-Weizen - Heute geerntet!",
+      "productDescriptionLabel": "Produktbeschreibung",
+      "productDescriptionPlaceholder": "Beschreiben Sie Ihr Produkt detailliert. Erwähnen Sie Qualität, Herkunft und Alleinstellungsmerkmale.",
+      "targetAudienceLabel": "Zielgruppe",
+      "targetAudiencePlaceholder": "z.B. Lokale Bäckereien, gesundheitsbewusste Familien",
+      "submittingButton": "Angebot wird analysiert...",
+      "submitButton": "Angebot verbessern"
+    },
+    "results": {
+      "loadingTitle": "Attraktivität wird gemessen...",
+      "loadingDescription": "Unsere KI bewertet Ihr Angebot und findet Verbesserungen.",
+      "title": "KI-Analyse abgeschlossen",
+      "attractivenessScore": "Attraktivitätsbewertung",
+      "suggestions": "Verbesserungsvorschläge"
+    },
+    "toast": {
+      "errorTitle": "Fehler",
+      "errorDescription": "Das Angebot konnte nicht analysiert werden. Bitte versuchen Sie es erneut."
+    }
+  },
+  "Settings": {
+    "title": "Einstellungen",
+    "subtitle": "Verwalten Sie Ihr Konto und Ihre Präferenzen.",
+    "language": {
+      "title": "Sprache",
+      "description": "Wählen Sie Ihre bevorzugte Sprache.",
+      "selectPlaceholder": "Sprache auswählen",
+      "english": "Englisch",
+      "spanish": "Spanisch",
+      "french": "Französisch",
+      "german": "Deutsch",
+      "hindi": "Hindi",
+      "marathi": "Marathi",
+      "malayalam": "Malayalam",
+      "mandarin": "Mandarin"
+    },
+    "appearance": {
+      "title": "Erscheinungsbild",
+      "description": "Wechseln Sie zwischen hellem und dunklem Modus.",
+      "light": "Hell",
+      "dark": "Dunkel"
+    },
+    "account": {
+      "title": "Konto",
+      "description": "Verwalten Sie Ihre Sitzung durch An- oder Abmelden.",
+      "login": "Anmelden",
+      "logout": "Abmelden"
+    }
+  },
+  "Auth": {
+    "title": "Willkommen bei AgriAssist",
+    "subtitle": "Ihr intelligenter Partner in der modernen Landwirtschaft.",
+    "loginTab": "Anmelden",
+    "signUpTab": "Registrieren",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "name@example.com",
+    "passwordLabel": "Passwort",
+    "loginButton": "Anmelden",
+    "fullNameLabel": "Vollständiger Name",
+    "fullNamePlaceholder": "Max Mustermann",
+    "signUpButton": "Registrieren"
+  },
+  "Home": {
+    "loading": "Ihr Erlebnis wird geladen..."
+  }
+}

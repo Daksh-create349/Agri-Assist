@@ -1,0 +1,351 @@
+{
+  "Sidebar": {
+    "dashboard": "Tablero",
+    "soilAnalysis": "Análisis de Suelo",
+    "cropRecommendation": "Recomendación de Cultivo",
+    "diseaseId": "ID de Enfermedad",
+    "fertilizerRecs": "Recomendaciones de Fertilizantes",
+    "cropGuidance": "Guía de Cultivo",
+    "marketplace": "Mercado",
+    "marketplaceBoost": "Impulso de Mercado",
+    "settings": "Configuración"
+  },
+  "Dashboard": {
+    "title": "Bienvenido a AgriAssist",
+    "subtitle": "Su socio inteligente en la agricultura moderna.",
+    "features": {
+      "soilAnalysis": {
+        "title": "Análisis de Suelo",
+        "description": "Suba los resultados del análisis de suelo para un análisis detallado."
+      },
+      "cropRecommendation": {
+        "title": "Recomendación de Cultivo",
+        "description": "Obtenga sugerencias de cultivos impulsadas por IA para su tierra."
+      },
+      "diseaseIdentification": {
+        "title": "Identificación de Enfermedades",
+        "description": "Identifique enfermedades de los cultivos subiendo una foto."
+      },
+      "fertilizerRecommendation": {
+        "title": "Recomendación de Fertilizantes",
+        "description": "Encuentre los mejores fertilizantes para sus cultivos y suelo."
+      },
+      "locationCropGuidance": {
+        "title": "Guía de Cultivos por Ubicación",
+        "description": "Descubra cultivos adecuados según su ubicación."
+      },
+      "fairPriceMarketplace": {
+        "title": "Mercado de Precios Justos",
+        "description": "Venda sus granos y productos a un precio justo."
+      },
+      "marketplaceBoost": {
+        "title": "Impulso de Mercado",
+        "description": "Optimice sus listados de mercado con IA."
+      }
+    }
+  },
+  "SoilAnalysis": {
+    "title": "Análisis de Suelo",
+    "subtitle": "Ingrese o suba los resultados de su análisis de suelo para un desglose detallado.",
+    "form": {
+      "title": "Enviar Datos del Suelo",
+      "description": "Proporcione sus datos de suelo, ubicación y clima para un análisis completo y recomendaciones de cultivos.",
+      "uploadLabel": "Subir Resultados de Análisis (Opcional)",
+      "previewAlt": "Vista previa del informe de suelo",
+      "uploadText": "Suba una foto de su informe de suelo.",
+      "selectFileButton": "Seleccionar Archivo",
+      "orEnterManually": "O ingresar manualmente",
+      "phLabel": "Nivel de pH",
+      "organicMatterLabel": "Materia Orgánica (%)",
+      "nitrogenLabel": "Nitrógeno (ppm)",
+      "phosphorusLabel": "Fósforo (ppm)",
+      "potassiumLabel": "Potasio (ppm)",
+      "textureLabel": "Textura del Suelo",
+      "texturePlaceholder": "Ej., Arena limosa",
+      "notesLabel": "Notas Adicionales",
+      "notesPlaceholder": "Cualquier otra observación o detalle...",
+      "locationAndClimate": "Ubicación y Clima",
+      "locationLabel": "Ubicación Geográfica",
+      "fetchingLocationButton": "Obteniendo...",
+      "useMyLocationButton": "Usar mi ubicación",
+      "locationPlaceholder": "Ej., Valle Central, California",
+      "climateLabel": "Condiciones Climáticas",
+      "climatePlaceholder": "Ej., Veranos calurosos y secos con inviernos suaves y húmedos. Precipitación promedio 20 pulgadas.",
+      "submittingButton": "Analizando Suelo...",
+      "submitButton": "Analizar Suelo"
+    },
+    "results": {
+      "loadingTitle": "Analizando sus datos de suelo...",
+      "loadingDescription": "Nuestra IA está preparando su informe de suelo.",
+      "title": "Informe de Análisis de Suelo con IA",
+      "nutrientBreakdown": "Desglose de Nutrientes",
+      "nutrientpH": "Nivel de pH",
+      "nutrientNitrogen": "Nitrógeno",
+      "nutrientPhosphorus": "Fósforo",
+      "nutrientPotassium": "Potasio",
+      "recommendations": "Recomendaciones",
+      "getCropSuggestionsButton": "Obtener Sugerencias de Cultivos"
+    },
+    "toast": {
+      "noDataTitle": "No se proporcionaron datos",
+      "noDataDescription": "Suba un informe de suelo o complete al menos uno de los campos de nutrientes principales.",
+      "errorTitle": "Error",
+      "errorDescription": "No se pudieron analizar los datos del suelo. Inténtelo de nuevo.",
+      "geolocationNotSupportedTitle": "Geolocalización no compatible",
+      "geolocationNotSupportedDescription": "Su navegador no es compatible con la geolocalización.",
+      "locationFoundTitle": "Ubicación y Clima Encontrados",
+      "locationFoundDescription": "Ubicación establecida en {locationName} y datos climáticos obtenidos.",
+      "fetchLocationErrorTitle": "No se pudieron obtener los datos de ubicación",
+      "fetchLocationErrorDescription": "Encontramos sus coordenadas pero no pudimos determinar el nombre de la ubicación o el clima.",
+      "locationAccessDeniedTitle": "Acceso a la ubicación denegado",
+      "locationAccessDeniedDescription": "Habilite los permisos de ubicación en la configuración de su navegador."
+    }
+  },
+  "CropRecommendation": {
+    "title": "Recomendación de Cultivos con IA",
+    "subtitle": "Obtenga sugerencias de cultivos adecuados según su suelo, ubicación y clima.",
+    "form": {
+      "title": "Detalles de la Granja",
+      "description": "Proporcione información sobre su granja para obtener recomendaciones de cultivos personalizadas.",
+      "locationLabel": "Ubicación Geográfica",
+      "locationPlaceholder": "Ej., Valle Central, California",
+      "climateLabel": "Condiciones Climáticas",
+      "climatePlaceholder": "Ej., Veranos calurosos y secos con inviernos suaves y húmedos. Precipitación promedio 20 pulgadas.",
+      "farmlandAreaLabel": "Área de Cultivo",
+      "farmlandAreaPlaceholder": "Ej., 50",
+      "unitLabel": "Unidad",
+      "unitPlaceholder": "Seleccione una unidad",
+      "acres": "Acres",
+      "hectares": "Hectáreas",
+      "soilDetailsOptional": "Detalles del Suelo (Opcional)",
+      "phLabel": "Nivel de pH",
+      "phPlaceholder": "Ej., 6.5",
+      "nitrogenLabel": "Nitrógeno (ppm)",
+      "nitrogenPlaceholder": "Ej., 25",
+      "phosphorusLabel": "Fósforo (ppm)",
+      "phosphorusPlaceholder": "Ej., 50",
+      "potassiumLabel": "Potasio (ppm)",
+      "potassiumPlaceholder": "Ej., 150",
+      "submittingButton": "Obteniendo Recomendaciones...",
+      "submitButton": "Obtener Recomendaciones"
+    },
+    "results": {
+      "loadingTitle": "Analizando sus datos...",
+      "loadingDescription": "Nuestra IA está encontrando los mejores cultivos para usted.",
+      "title": "Recomendaciones Impulsadas por IA",
+      "description": "Aquí están las principales sugerencias de cultivos y sus precios de semillas estimados según los detalles de su granja.",
+      "tableCrop": "Cultivo",
+      "tableSeedPrice": "Precio de la Semilla",
+      "idleTitle": "Sus resultados aparecerán aquí.",
+      "idleDescription": "Complete el formulario para comenzar."
+    },
+    "toast": {
+      "errorTitle": "Error",
+      "errorDescription": "No se pudieron obtener las recomendaciones de cultivos. Inténtelo de nuevo."
+    }
+  },
+  "DiseaseIdentification": {
+    "title": "Identificación de Enfermedades Basada en Imágenes",
+    "subtitle": "Suba una foto de un cultivo para identificar posibles enfermedades usando IA.",
+    "form": {
+      "title": "Proporcionar Imagen del Cultivo",
+      "description": "Suba una foto o use su cámara para capturar una imagen del cultivo afectado.",
+      "cropPreviewAlt": "Vista previa del cultivo",
+      "chooseAnotherImageButton": "Elegir otra imagen",
+      "uploadTab": "Subir Archivo",
+      "cameraTab": "Usar Cámara",
+      "uploadText": "Arrastre y suelte o haga clic para subir",
+      "chooseImageButton": "Elegir Imagen",
+      "cameraAccessDeniedTitle": "Acceso a la cámara denegado",
+      "cameraAccessDeniedDescription": "Habilite los permisos de la cámara para usar esta función.",
+      "takePictureButton": "Tomar Foto",
+      "submittingButton": "Analizando Imagen...",
+      "submitButton": "Identificar Enfermedad"
+    },
+    "results": {
+      "loadingTitle": "Analizando su imagen...",
+      "loadingDescription": "Nuestra IA está buscando signos de enfermedad.",
+      "title": "Diagnóstico por IA",
+      "likelyDisease": "Enfermedad Probable",
+      "confidenceLevel": "Nivel de Confianza",
+      "possibleSolutions": "Soluciones Posibles"
+    },
+    "toast": {
+      "cameraNotSupportedTitle": "Cámara no compatible",
+      "cameraNotSupportedDescription": "Su navegador no es compatible con el acceso a la cámara.",
+      "cameraAccessDeniedTitle": "Acceso a la cámara denegado",
+      "cameraAccessDeniedDescription": "Habilite los permisos de la cámara en la configuración de su navegador para usar esta función.",
+      "noImageSelectedTitle": "No se seleccionó ninguna imagen",
+      "noImageSelectedDescription": "Suba o capture una imagen del cultivo.",
+      "errorTitle": "Error",
+      "errorDescription": "No se pudo identificar la enfermedad. Inténtelo de nuevo."
+    }
+  },
+  "FertilizerRecommendation": {
+    "title": "Recomendación de Fertilizantes con IA",
+    "subtitle": "Obtenga sugerencias de fertilizantes personalizadas para su cultivo y condiciones de suelo específicas.",
+    "form": {
+      "title": "Detalles del Cultivo y Suelo",
+      "description": "Proporcione información sobre su cultivo y suelo para obtener recomendaciones óptimas de fertilizantes.",
+      "cropTypeLabel": "Tipo de Cultivo",
+      "cropTypePlaceholder": "Ej., Maíz, Trigo, Tomates",
+      "uploadPhotoLabel": "Subir Foto del Cultivo (Opcional)",
+      "uploadPhotoDescription": "Intentaremos inferir las condiciones del suelo a partir de la imagen.",
+      "cropPreviewAlt": "Vista previa del informe de cultivo",
+      "uploadText": "Suba una foto de su cultivo.",
+      "selectImageButton": "Seleccionar Imagen",
+      "analyzingImage": "Analizando imagen...",
+      "analysisFailed": "No se pudo analizar la imagen. Ingrese manualmente.",
+      "soilConditionsLabel": "Condiciones del Suelo",
+      "soilConditionsPlaceholder": "Ej., Bajo en nitrógeno, pH de 6.2, buen drenaje",
+      "regionLabel": "Región Geográfica",
+      "fetchingLocationButton": "Obteniendo...",
+      "useMyLocationButton": "Usar mi ubicación",
+      "regionPlaceholder": "Ej., Medio Oeste, EE. UU.",
+      "submittingButton": "Analizando...",
+      "submitButton": "Recomendar Fertilizantes"
+    },
+    "results": {
+      "loadingTitle": "Calculando recomendaciones...",
+      "loadingDescription": "Nuestra IA está personalizando sugerencias para usted.",
+      "title": "Plan de Fertilizantes",
+      "recommendations": "Recomendaciones",
+      "reasoning": "Razonamiento"
+    },
+    "toast": {
+      "imageAnalyzedTitle": "Imagen Analizada",
+      "imageAnalyzedDescription": "Se han completado las condiciones del suelo inferidas.",
+      "analysisFailedTitle": "Análisis Fallido",
+      "analysisFailedDescription": "No se pudieron inferir las condiciones del suelo a partir de la imagen.",
+      "errorTitle": "Error",
+      "errorDescription": "No se pudieron obtener las recomendaciones de fertilizantes. Inténtelo de nuevo.",
+      "geolocationNotSupportedTitle": "Geolocalización no compatible",
+      "geolocationNotSupportedDescription": "Su navegador no es compatible con la geolocalización.",
+      "locationFoundTitle": "Ubicación Encontrada",
+      "locationFoundDescription": "Región establecida en {locationName}.",
+      "fetchLocationErrorTitle": "No se pudo obtener la ubicación",
+      "fetchLocationErrorDescription": "No pudimos determinar el nombre de su ubicación a partir de sus coordenadas.",
+      "locationAccessDeniedTitle": "Acceso a la ubicación denegado",
+      "locationAccessDeniedDescription": "Habilite los permisos de ubicación en la configuración de su navegador."
+    }
+  },
+  "CropGuidance": {
+    "title": "Guía de Cultivos Basada en la Ubicación",
+    "subtitle": "Descubra qué cultivos son los más adecuados para su ubicación geográfica específica.",
+    "yourLocation": "Su Ubicación",
+    "locationDescription": "Usamos su ubicación para proporcionar orientación sobre cultivos adecuados.",
+    "idleText": "Haga clic en el botón para obtener orientación sobre cultivos para su área.",
+    "getMyLocationButton": "Obtener Mi Ubicación",
+    "fetchingLocation": "Obteniendo su ubicación...",
+    "identifyingLocation": "Identificando su ubicación...",
+    "tryAgainButton": "Intentar de Nuevo",
+    "locationFound": "Ubicación Encontrada",
+    "unknownLocation": "Ubicación Desconocida",
+    "lat": "Lat",
+    "lon": "Lon",
+    "suggestionsTitle": "Sugerencias de Cultivos para su Área",
+    "suggestionsDescription": "Basado en datos climáticos generales para sus coordenadas.",
+    "geolocationNotSupported": "La geolocalización no es compatible con su navegador.",
+    "unableToRetrieveLocation": "No se puede recuperar su ubicación. Asegúrese de que los servicios de ubicación estén habilitados.",
+    "crops": {
+      "corn": {
+        "name": "Maíz",
+        "description": "Prospera en climas cálidos con mucho sol. Bueno para regiones con veranos calurosos."
+      },
+      "soybeans": {
+        "name": "Soja",
+        "description": "Adaptable a varios climas, pero prefiere condiciones cálidas y húmedas."
+      },
+      "wheat": {
+        "name": "Trigo",
+        "description": "Generalmente se cultiva en climas templados, se puede plantar en otoño o primavera según la variedad."
+      },
+      "potatoes": {
+        "name": "Papas",
+        "description": "Un cultivo de clima frío que se adapta a muchas regiones."
+      }
+    },
+    "toast": {
+      "fetchNameErrorTitle": "No se pudo obtener el nombre de la ubicación",
+      "fetchNameErrorDescription": "Encontramos sus coordenadas pero no pudimos determinar el nombre de la ubicación."
+    }
+  },
+  "Marketplace": {
+    "title": "Mercado de Precios Justos",
+    "subtitle": "Compre y venda granos y productos directamente de los agricultores.",
+    "soldBy": "Vendido por",
+    "addToCartButton": "Agregar al Carrito"
+  },
+  "MarketplaceBoost": {
+    "title": "Impulso de Oferta de Mercado",
+    "subtitle": "Use IA para analizar y mejorar el atractivo de sus listados de mercado.",
+    "form": {
+      "title": "Detalles de la Oferta",
+      "description": "Proporcione los detalles de su oferta para obtener una puntuación de atractivo y sugerencias impulsadas por IA.",
+      "adCopyLabel": "Texto del Anuncio / Título",
+      "adCopyPlaceholder": "Ej., ¡Trigo Fresco y Orgánico - Cosechado Hoy!",
+      "productDescriptionLabel": "Descripción del Producto",
+      "productDescriptionPlaceholder": "Describa su producto en detalle. Mencione la calidad, el origen y los puntos de venta únicos.",
+      "targetAudienceLabel": "Público Objetivo",
+      "targetAudiencePlaceholder": "Ej., Panaderías locales, familias conscientes de la salud",
+      "submittingButton": "Analizando Oferta...",
+      "submitButton": "Impulsar Oferta"
+    },
+    "results": {
+      "loadingTitle": "Midiendo el atractivo...",
+      "loadingDescription": "Nuestra IA está puntuando su listado y encontrando mejoras.",
+      "title": "Análisis de IA Completo",
+      "attractivenessScore": "Puntuación de Atractivo",
+      "suggestions": "Sugerencias de Mejora"
+    },
+    "toast": {
+      "errorTitle": "Error",
+      "errorDescription": "No se pudo analizar la oferta. Inténtelo de nuevo."
+    }
+  },
+  "Settings": {
+    "title": "Configuración",
+    "subtitle": "Administre su cuenta y preferencias.",
+    "language": {
+      "title": "Idioma",
+      "description": "Elija su idioma preferido.",
+      "selectPlaceholder": "Seleccionar idioma",
+      "english": "Inglés",
+      "spanish": "Español",
+      "french": "Francés",
+      "german": "Alemán",
+      "hindi": "Hindi",
+      "marathi": "Maratí",
+      "malayalam": "Malayalam",
+      "mandarin": "Mandarín"
+    },
+    "appearance": {
+      "title": "Apariencia",
+      "description": "Cambie entre el modo claro y oscuro.",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "account": {
+      "title": "Cuenta",
+      "description": "Administre su sesión iniciando o cerrando sesión.",
+      "login": "Iniciar Sesión",
+      "logout": "Cerrar Sesión"
+    }
+  },
+  "Auth": {
+    "title": "Bienvenido a AgriAssist",
+    "subtitle": "Su socio inteligente en la agricultura moderna.",
+    "loginTab": "Iniciar Sesión",
+    "signUpTab": "Registrarse",
+    "emailLabel": "Correo Electrónico",
+    "emailPlaceholder": "nombre@ejemplo.com",
+    "passwordLabel": "Contraseña",
+    "loginButton": "Iniciar Sesión",
+    "fullNameLabel": "Nombre Completo",
+    "fullNamePlaceholder": "Juan Pérez",
+    "signUpButton": "Registrarse"
+  },
+  "Home": {
+    "loading": "Cargando su experiencia..."
+  }
+}
