@@ -12,15 +12,16 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        router.replace('/dashboard');
-      } else {
-        router.replace('/auth');
-      }
-    });
+    router.replace('/dashboard');
+    // const unsubscribe = onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     router.replace('/dashboard');
+    //   } else {
+    //     router.replace('/auth');
+    //   }
+    // });
 
-    return () => unsubscribe();
+    // return () => unsubscribe();
   }, [router]);
 
   return (

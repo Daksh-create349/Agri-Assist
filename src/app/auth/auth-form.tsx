@@ -27,16 +27,15 @@ import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email address.'),
-  password: z.string().min(1, 'Please enter your password.'),
+  email: z.string(),
+  password: z.string(),
 });
 
 const signUpSchema = z.object({
-  fullName: z.string().min(1, 'Please enter your full name.'),
-  email: z.string().email('Please enter a valid email address.'),
+  fullName: z.string(),
+  email: z.string(),
   password: z
-    .string()
-    .min(6, 'Password must be at least 6 characters long.'),
+    .string(),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -67,54 +66,18 @@ export function AuthForm() {
 
   async function onLogin(values: LoginFormData) {
     setIsSubmitting(true);
-    try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
+    // Bypass authentication for demo
+    setTimeout(() => {
       router.push('/dashboard');
-    } catch (error: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Authentication Error',
-        description:
-          error.code === 'auth/invalid-credential'
-            ? 'Invalid email or password.'
-            : 'An unexpected error occurred. Please try again.',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    }, 500);
   }
 
   async function onSignUp(values: SignUpFormData) {
     setIsSubmitting(true);
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-      await updateProfile(userCredential.user, {
-        displayName: values.fullName,
-      });
-      toast({
-        title: 'Account Created',
-        description: 'Welcome! You are now logged in.',
-      });
+    // Bypass authentication for demo
+    setTimeout(() => {
       router.push('/dashboard');
-    } catch (error: any) {
-      let description = 'An unexpected error occurred. Please try again.';
-      if (error.code === 'auth/email-already-in-use') {
-        description = 'This email is already associated with an account.';
-      } else if (error.code === 'auth/weak-password') {
-        description = 'The password is too weak. Please use at least 6 characters.';
-      }
-      toast({
-        variant: 'destructive',
-        title: 'Sign Up Error',
-        description: description,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    }, 500);
   }
 
   return (

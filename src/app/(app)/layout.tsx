@@ -24,19 +24,19 @@ export default function AppLayout({
 }) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Changed to false to bypass auth check
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        router.push('/auth');
-      }
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, [router]);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setUser(user);
+  //     } else {
+  //       router.push('/auth');
+  //     }
+  //     setLoading(false);
+  //   });
+  //   return () => unsubscribe();
+  // }, [router]);
 
   if (loading) {
      return (
@@ -53,9 +53,9 @@ export default function AppLayout({
     );
   }
   
-  if (!user) {
-    return null; 
-  }
+  // if (!user) { // Bypass user check
+  //   return null; 
+  // }
 
   return (
     <SidebarProvider>
