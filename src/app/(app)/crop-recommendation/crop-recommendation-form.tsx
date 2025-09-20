@@ -73,7 +73,7 @@ function CropRecommendationFormComponent() {
       potassium: '',
       overallHealth: '',
       soilTexture: '',
-      farmlandArea: undefined,
+      farmlandArea: '' as unknown as number, // Fix: Use empty string for uncontrolled->controlled error
       farmlandUnit: 'acres',
     },
   });
@@ -115,7 +115,7 @@ function CropRecommendationFormComponent() {
         potassium: potassium || undefined,
         overallHealth: overallHealth || undefined,
       };
-      form.reset(values);
+      form.reset(values as FormData); // Cast to FormData to match form's type
       onSubmit(values);
     }
   }, [searchParams, form]);
