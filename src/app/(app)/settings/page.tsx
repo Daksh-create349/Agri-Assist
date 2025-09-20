@@ -10,10 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { LogIn, LogOut } from 'lucide-react';
+import { LogIn, LogOut, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 export default function SettingsPage() {
   const router = useRouter();
+  const { setTheme, theme } = useTheme();
 
   const handleLogin = () => {
     router.push('/auth');
@@ -35,22 +37,48 @@ export default function SettingsPage() {
           Manage your account and preferences.
         </p>
       </div>
-      <Card className="max-w-md">
-        <CardHeader>
-          <CardTitle>Account</CardTitle>
-          <CardDescription>
-            Manage your session by logging in or out.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Button onClick={handleLogin} className="w-full">
-            <LogIn className="mr-2" /> Login
-          </Button>
-          <Button onClick={handleLogout} variant="outline" className="w-full">
-            <LogOut className="mr-2" /> Logout
-          </Button>
-        </CardContent>
-      </Card>
+      <div className="grid gap-6 max-w-md">
+        <Card>
+          <CardHeader>
+            <CardTitle>Appearance</CardTitle>
+            <CardDescription>
+              Switch between light and dark mode.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4">
+              <Button
+                variant={theme === 'light' ? 'default' : 'outline'}
+                onClick={() => setTheme('light')}
+              >
+                <Sun className="mr-2" /> Light
+              </Button>
+              <Button
+                variant={theme === 'dark' ? 'default' : 'outline'}
+                onClick={() => setTheme('dark')}
+              >
+                <Moon className="mr-2" /> Dark
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Account</CardTitle>
+            <CardDescription>
+              Manage your session by logging in or out.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Button onClick={handleLogin} className="w-full">
+              <LogIn className="mr-2" /> Login
+            </Button>
+            <Button onClick={handleLogout} variant="outline" className="w-full">
+              <LogOut className="mr-2" /> Logout
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
     </main>
   );
 }
