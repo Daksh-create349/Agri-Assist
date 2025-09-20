@@ -21,11 +21,14 @@ const AgriAssistIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, isCollapsed }: { className?: string, isCollapsed?: boolean }) {
   return (
     <div className={cn('flex items-center gap-2', className)}>
       <AgriAssistIcon className="h-6 w-6 text-primary" />
-      <span className="text-lg font-bold font-headline text-sidebar-foreground">
+      <span className={cn(
+          "text-lg font-bold font-headline text-sidebar-foreground",
+          isCollapsed && "hidden"
+          )}>
         AgriAssist
       </span>
     </div>

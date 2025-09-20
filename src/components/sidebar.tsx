@@ -15,6 +15,8 @@ import {
   Menu,
   Rss,
   User,
+  PanelLeft,
+  PanelRight
 } from 'lucide-react';
 
 import { Logo } from '@/components/logo';
@@ -24,6 +26,12 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 const links = [
@@ -51,43 +59,62 @@ const links = [
   { href: '/profile', label: 'My Profile', icon: User },
 ];
 
-export function Sidebar() {
+type SidebarProps = {
+  isCollapsed: boolean;
+  toggleSidebar: () => void;
+};
+
+export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
     const pathname = usePathname();
     return (
         <>
             <aside className="hidden border-r bg-muted/40 md:block">
                 <div className="flex h-full max-h-screen flex-col gap-2">
-                    <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+                    <div className={cn("flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6", isCollapsed && "justify-center")}>
                         <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
-                            <Logo />
+                            <Logo isCollapsed={isCollapsed} />
                         </Link>
                     </div>
                     <div className="flex-1">
-                        <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+                        <TooltipProvider>
+                        <nav className={cn("grid items-start text-sm font-medium", isCollapsed ? "px-2" : "px-2 lg:px-4")}>
                             {links.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", 
-                                pathname === link.href && "bg-muted text-primary"
-                                )}
-                            >
-                                <link.icon className="h-4 w-4" />
-                                {link.label}
-                            </Link>
+                                isCollapsed ? (
+                                    <Tooltip key={link.href} delayDuration={0}>
+                                        <TooltipTrigger asChild>
+                                             <Link
+                                                href={link.href}
+                                                className={cn("flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-primary md:h-8 md:w-8", 
+                                                pathname === link.href && "bg-muted text-primary"
+                                                )}
+                                            >
+                                                <link.icon className="h-5 w-5" />
+                                                <span className="sr-only">{link.label}</span>
+                                            </Link>
+                                        </TooltipTrigger>
+                                        <TooltipContent side="right">{link.label}</TooltipContent>
+                                    </Tooltip>
+                                ) : (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", 
+                                        pathname === link.href && "bg-muted text-primary"
+                                        )}
+                                    >
+                                        <link.icon className="h-4 w-4" />
+                                        {link.label}
+                                    </Link>
+                                )
                             ))}
                         </nav>
+                        </TooltipProvider>
                     </div>
                     <div className="mt-auto p-4">
-                        <Link
-                            href="/settings"
-                            className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
-                            pathname === '/settings' && "bg-muted text-primary"
-                            )}
-                            >
-                            <Settings className="h-4 w-4" />
-                            Settings
-                        </Link>
+                        <Button onClick={toggleSidebar} size="icon" variant="outline" className="w-full">
+                           {isCollapsed ? <PanelRight className="h-4 w-4" /> : <PanelLeft className="h-4 w-4" />}
+                           <span className="sr-only">Toggle Sidebar</span>
+                        </Button>
                     </div>
                 </div>
             </aside>
