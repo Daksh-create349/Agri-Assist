@@ -346,7 +346,11 @@ export function FertilizerRecommendationForm() {
             <CardContent className="space-y-4">
               <div>
                 <h3 className="font-semibold text-lg">Recommendations</h3>
-                <p className="mt-2 text-sm text-foreground/80 whitespace-pre-wrap">{aiResponse.fertilizerRecommendations}</p>
+                <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-foreground/80">
+                  {aiResponse.fertilizerRecommendations.map((rec, index) => (
+                    <li key={index}>{rec}</li>
+                  ))}
+                </ul>
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Reasoning</h3>

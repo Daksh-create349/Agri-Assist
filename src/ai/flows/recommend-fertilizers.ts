@@ -19,7 +19,11 @@ const RecommendFertilizersInputSchema = z.object({
 export type RecommendFertilizersInput = z.infer<typeof RecommendFertilizersInputSchema>;
 
 const RecommendFertilizersOutputSchema = z.object({
-  fertilizerRecommendations: z.string().describe('Specific fertilizer recommendations tailored to the crop and soil conditions.'),
+  fertilizerRecommendations: z
+    .array(z.string())
+    .describe(
+      'A list of specific fertilizer recommendations in point form, tailored to the crop and soil conditions.'
+    ),
   reasoning: z.string().describe('The AI reasoning behind the fertilizer recommendations.'),
 });
 export type RecommendFertilizersOutput = z.infer<typeof RecommendFertilizersOutputSchema>;
@@ -38,7 +42,7 @@ Crop: {{{crop}}}
 Soil Conditions: {{{soilConditions}}}
 Region: {{{region}}}
 
-Provide specific fertilizer recommendations and explain the reasoning behind your choices.`,
+Provide specific fertilizer recommendations as a list of bullet points. Also, explain the reasoning behind your choices.`,
 });
 
 const recommendFertilizersFlow = ai.defineFlow(
