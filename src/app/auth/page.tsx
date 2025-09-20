@@ -14,7 +14,7 @@ export default function AuthenticationPage() {
         className="absolute inset-0 h-full w-full object-cover -z-10"
       />
       {/* Overlay */}
-      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm -z-10" />
+      <div className="absolute inset-0 bg-background/80 -z-10" />
 
       {/* Form Content */}
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 rounded-lg border bg-card/80 p-8 shadow-lg sm:w-[380px]">
