@@ -1,15 +1,19 @@
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Loader2, Sparkles, Droplets } from 'lucide-react';
+import { Loader2, Sparkles, Droplets, Upload, X, MapPin } from 'lucide-react';
 
 import {
   recommendFertilizers,
   type RecommendFertilizersOutput,
 } from '@/ai/flows/recommend-fertilizers';
+import { inferSoilConditionsFromCropImage } from '@/ai/flows/infer-soil-conditions-from-crop-image';
+import { getLocationNameFromCoords } from '@/ai/flows/get-location-name-from-coords';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -41,7 +45,12 @@ type FormData = z.infer<typeof formSchema>;
 export function FertilizerRecommendationForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFetchingLocation, setIsFetchingLocation] = useState(false);
+  const [isAnalyzingImage, setIsAnalyzingImage] = useState(false);
   const [aiResponse, setAiResponse] = useState<RecommendFertilizersOutput | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -51,6 +60,52 @@ export function FertilizerRecommendationForm() {
       region: '',
     },
   });
+
+  const fileToDataUri = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(selectedFile);
+      await analyzeImage(selectedFile);
+    }
+  };
+
+  const analyzeImage = async (file: File) => {
+    setIsAnalyzingImage(true);
+    form.setValue('soilConditions', 'Analyzing image...');
+    try {
+      const photoDataUri = await fileToDataUri(file);
+      const { soilConditions } = await inferSoilConditionsFromCropImage({ photoDataUri });
+      form.setValue('soilConditions', soilConditions, { shouldValidate: true });
+      toast({
+        title: 'Image Analyzed',
+        description: 'Inferred soil conditions have been filled in.',
+      });
+    } catch (error) {
+      console.error('Failed to analyze image', error);
+      form.setValue('soilConditions', 'Could not analyze image. Please enter manually.', { shouldValidate: true });
+      toast({
+        variant: 'destructive',
+        title: 'Analysis Failed',
+        description: 'Could not infer soil conditions from the image.',
+      });
+    } finally {
+      setIsAnalyzingImage(false);
+    }
+  };
 
   async function onSubmit(values: FormData) {
     setIsSubmitting(true);
@@ -69,6 +124,61 @@ export function FertilizerRecommendationForm() {
       setIsSubmitting(false);
     }
   }
+
+  const handleGetLocation = () => {
+    if (!navigator.geolocation) {
+      toast({
+        variant: 'destructive',
+        title: 'Geolocation Not Supported',
+        description: 'Your browser does not support geolocation.',
+      });
+      return;
+    }
+
+    setIsFetchingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          const { locationName } = await getLocationNameFromCoords({ latitude, longitude });
+          form.setValue('region', locationName, { shouldValidate: true });
+          toast({
+            title: 'Location Found',
+            description: `Set region to ${locationName}.`,
+          });
+        } catch (error) {
+          console.error('Failed to get location info', error);
+          toast({
+            variant: 'destructive',
+            title: 'Could not fetch location',
+            description: 'We could not determine your location name from your coordinates.',
+          });
+        } finally {
+          setIsFetchingLocation(false);
+        }
+      },
+      () => {
+        toast({
+          variant: 'destructive',
+          title: 'Location Access Denied',
+          description: 'Please enable location permissions in your browser settings.',
+        });
+        setIsFetchingLocation(false);
+      }
+    );
+  };
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const resetSelection = () => {
+    setFile(null);
+    setPreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -95,6 +205,58 @@ export function FertilizerRecommendationForm() {
                   </FormItem>
                 )}
               />
+
+              <div className="space-y-2">
+                <FormLabel>Upload Crop Photo (Optional)</FormLabel>
+                <p className="text-sm text-muted-foreground">We'll try to infer soil conditions from the image.</p>
+                <Input
+                  id="file-upload"
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  className="hidden"
+                  accept="image/*"
+                />
+                {preview ? (
+                  <div className="group relative w-full max-w-sm overflow-hidden rounded-lg border border-border">
+                    <Image
+                      src={preview}
+                      alt="Crop report preview"
+                      width={400}
+                      height={300}
+                      className="object-contain"
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon"
+                      className="absolute right-2 top-2 h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100"
+                      onClick={resetSelection}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-border p-8 text-center">
+                    <div className="text-center">
+                      <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
+                      <p className="mt-4 text-sm text-muted-foreground">
+                        Upload a photo of your crop.
+                      </p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleUploadClick}
+                        className="mt-4"
+                      >
+                        <Upload className="mr-2 h-4 w-4" />
+                        Select Image
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <FormField
                 control={form.control}
                 name="soilConditions"
@@ -106,6 +268,7 @@ export function FertilizerRecommendationForm() {
                         placeholder="e.g., Low in nitrogen, pH of 6.2, good drainage"
                         {...field}
                         rows={4}
+                        disabled={isAnalyzingImage}
                       />
                     </FormControl>
                     <FormMessage />
@@ -117,7 +280,28 @@ export function FertilizerRecommendationForm() {
                 name="region"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Geographical Region</FormLabel>
+                     <div className="flex items-center justify-between">
+                      <FormLabel>Geographical Region</FormLabel>
+                       <Button
+                        type="button"
+                        variant="link"
+                        className="h-auto p-0 text-xs"
+                        onClick={handleGetLocation}
+                        disabled={isFetchingLocation}
+                      >
+                         {isFetchingLocation ? (
+                          <>
+                            <Loader2 className="mr-1 h-3 w-3 animate-spin" />
+                            Fetching...
+                          </>
+                        ) : (
+                          <>
+                           <MapPin className="mr-1 h-3 w-3" />
+                           Use my location
+                          </>
+                        )}
+                      </Button>
+                    </div>
                     <FormControl>
                       <Input placeholder="e.g., Midwest, USA" {...field} />
                     </FormControl>
@@ -125,7 +309,7 @@ export function FertilizerRecommendationForm() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting || isAnalyzingImage}>
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -142,7 +326,7 @@ export function FertilizerRecommendationForm() {
           </Form>
         </CardContent>
       </Card>
-      
+
       <div className="space-y-6">
         {isSubmitting && (
            <Card className="flex h-full min-h-96 flex-col items-center justify-center">
