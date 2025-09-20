@@ -22,13 +22,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { extractAadharDetails } from '@/ai/flows/extract-aadhar-details';
 
 const loginSchema = z.object({
+  fullName: z.string().min(2, 'Please enter your full name.'),
+  aadharNumber: z.string().regex(/^\d{4}\s\d{4}\s\d{4}$/, 'Please enter a valid 12-digit Aadhar number.'),
   email: z.string().email('Please enter a valid email address.'),
   password: z.string().min(1, 'Password is required.'),
 });
 
 const signUpSchema = z.object({
-  fullName: z.string().min(2, 'Please enter your full name.'),
-  aadharNumber: z.string().regex(/^\d{4}\s\d{4}\s\d{4}$/, 'Please enter a valid 12-digit Aadhar number.'),
   email: z.string().email('Please enter a valid email address.'),
   password: z
     .string()
@@ -50,6 +50,8 @@ export function AuthForm() {
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
+      fullName: '',
+      aadharNumber: '',
       email: '',
       password: '',
     },
@@ -58,8 +60,6 @@ export function AuthForm() {
   const signUpForm = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
-      fullName: '',
-      aadharNumber: '',
       email: '',
       password: '',
     },
@@ -98,8 +98,8 @@ export function AuthForm() {
       try {
         const photoDataUri = await fileToDataUri(file);
         const details = await extractAadharDetails({ photoDataUri });
-        signUpForm.setValue('fullName', details.fullName, { shouldValidate: true });
-        signUpForm.setValue('aadharNumber', details.aadharNumber, { shouldValidate: true });
+        loginForm.setValue('fullName', details.fullName, { shouldValidate: true });
+        loginForm.setValue('aadharNumber', details.aadharNumber, { shouldValidate: true });
         toast({
           title: 'Details Extracted',
           description: "We've filled in your name and Aadhar number.",
@@ -130,48 +130,7 @@ export function AuthForm() {
             onSubmit={loginForm.handleSubmit(onLogin)}
             className="space-y-4 pt-4"
           >
-            <FormField
-              control={loginForm.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="name@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={loginForm.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" disabled={isSubmitting} className="w-full">
-              {isSubmitting && (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              )}
-              Login
-            </Button>
-          </form>
-        </Form>
-      </TabsContent>
-      <TabsContent value="signup">
-        <Form {...signUpForm}>
-          <form
-            onSubmit={signUpForm.handleSubmit(onSignUp)}
-            className="space-y-4 pt-4"
-          >
-             <div className="space-y-2">
+            <div className="space-y-2">
                 <FormLabel>Upload Aadhar Card</FormLabel>
                 <Input
                     ref={fileInputRef}
@@ -200,7 +159,7 @@ export function AuthForm() {
             </div>
             
             <FormField
-              control={signUpForm.control}
+              control={loginForm.control}
               name="fullName"
               render={({ field }) => (
                 <FormItem>
@@ -213,7 +172,7 @@ export function AuthForm() {
               )}
             />
              <FormField
-              control={signUpForm.control}
+              control={loginForm.control}
               name="aadharNumber"
               render={({ field }) => (
                 <FormItem>
@@ -225,6 +184,47 @@ export function AuthForm() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={loginForm.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="name@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={loginForm.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" disabled={isSubmitting || isScanning} className="w-full">
+              {(isSubmitting || isScanning) && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Login
+            </Button>
+          </form>
+        </Form>
+      </TabsContent>
+      <TabsContent value="signup">
+        <Form {...signUpForm}>
+          <form
+            onSubmit={signUpForm.handleSubmit(onSignUp)}
+            className="space-y-4 pt-4"
+          >
             <FormField
               control={signUpForm.control}
               name="email"
@@ -251,8 +251,8 @@ export function AuthForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isSubmitting || isScanning} className="w-full">
-              {(isSubmitting || isScanning) && (
+            <Button type="submit" disabled={isSubmitting} className="w-full">
+              {isSubmitting && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}
               Sign Up
