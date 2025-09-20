@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "wheat",
+      "description": "A golden field of wheat ready for harvest.",
+      "imageUrl": "https://picsum.photos/seed/wheat/600/400",
+      "imageHint": "wheat field"
+    },
+    {
+      "id": "corn",
+      "description": "Rows of healthy corn stalks in a sunny field.",
+      "imageUrl": "https://picsum.photos/seed/corn/600/400",
+      "imageHint": "corn field"
+    },
+    {
+      "id": "rice",
+      "description": "Lush green rice paddies stretching to the horizon.",
+      "imageUrl": "https://picsum.photos/seed/rice/600/400",
+      "imageHint": "rice paddy"
+    },
+    {
+      "id": "soybeans",
+      "description": "Close-up of soybean pods on a plant.",
+      "imageUrl": "https://picsum.photos/seed/soybeans/600/400",
+      "imageHint": "soybean plant"
+    },
+    {
+      "id": "barley",
+      "description": "Heads of barley swaying in the wind.",
+      "imageUrl": "https://picsum.photos/seed/barley/600/400",
+      "imageHint": "barley field"
+    },
+    {
+      "id": "tomatoes",
+      "description": "Vine-ripened tomatoes ready for picking.",
+      "imageUrl": "https://picsum.photos/seed/tomatoes/600/400",
+      "imageHint": "ripe tomatoes"
+    }
+  ]
 }
