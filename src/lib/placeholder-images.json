@@ -1,9 +1,10 @@
+
 {
   "placeholderImages": [
     {
       "id": "wheat",
       "description": "A golden field of wheat ready for harvest.",
-      "imageUrl": "https://picsum.photos/seed/wheat/600/400",
+      "imageUrl": "https://t4.ftcdn.net/jpg/01/42/95/07/360_F_142950790_b87AL1gys1dUSzxF9cXmMrDNff0sZIM1.jpg",
       "imageHint": "wheat field"
     },
     {
