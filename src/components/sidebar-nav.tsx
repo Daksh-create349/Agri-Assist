@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -8,7 +9,8 @@ import {
   Store,
   TestTube,
   TrendingUp,
-  LayoutDashboard
+  LayoutDashboard,
+  Settings
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -24,6 +26,7 @@ const links = [
   { href: '/crop-guidance', label: 'Crop Guidance', icon: MapPin },
   { href: '/marketplace', label: 'Marketplace', icon: Store },
   { href: '/marketplace-boost', label: 'Marketplace Boost', icon: TrendingUp },
+  { href: '/settings', label: 'Settings', icon: Settings },
 ]
 
 export function SidebarNav() {
