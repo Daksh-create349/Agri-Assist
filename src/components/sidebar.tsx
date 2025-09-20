@@ -13,8 +13,7 @@ import {
   LayoutDashboard,
   Settings,
   Menu,
-  Home,
-  PanelLeft,
+  Rss,
 } from 'lucide-react';
 
 import { Logo } from '@/components/logo';
@@ -24,20 +23,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 
 const links = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -60,6 +46,7 @@ const links = [
     label: 'Marketplace Boost',
     icon: TrendingUp,
   },
+  { href: '/my-poll', label: 'My Poll', icon: Rss },
 ];
 
 export function Sidebar() {
