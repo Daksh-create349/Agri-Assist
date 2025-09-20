@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Loader2, Sparkles, ThumbsUp, Leaf } from 'lucide-react';
+import { Loader2, Sparkles, ThumbsUp, Leaf, Tractor } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 
 import {
@@ -29,9 +29,17 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const formSchema = z.object({
   location: z.string().min(2, 'Please enter a valid location.'),
@@ -42,6 +50,8 @@ const formSchema = z.object({
   potassium: z.string().optional(),
   overallHealth: z.string().optional(),
   soilTexture: z.string().optional(),
+  farmlandArea: z.coerce.number().positive('Please enter a valid area.').optional(),
+  farmlandUnit: z.enum(['hectares', 'acres']).default('acres'),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -63,6 +73,8 @@ function CropRecommendationFormComponent() {
       potassium: '',
       overallHealth: '',
       soilTexture: '',
+      farmlandArea: undefined,
+      farmlandUnit: 'acres',
     },
   });
 
@@ -85,7 +97,6 @@ function CropRecommendationFormComponent() {
   }
 
   useEffect(() => {
-    // This function will run only once when the component mounts.
     const location = searchParams.get('location');
     const climateConditions = searchParams.get('climateConditions');
     const phLevel = searchParams.get('phLevel');
@@ -94,7 +105,6 @@ function CropRecommendationFormComponent() {
     const potassium = searchParams.get('potassium');
     const overallHealth = searchParams.get('overallHealth');
     
-    // Check if at least location and climate are present to trigger auto-submission
     if (location && climateConditions) {
       const values: SuggestCropsInput = {
         location,
@@ -108,8 +118,7 @@ function CropRecommendationFormComponent() {
       form.reset(values);
       onSubmit(values);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, form.reset]);
+  }, [searchParams, form]);
 
 
   return (
@@ -124,35 +133,73 @@ function CropRecommendationFormComponent() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Geographical Location</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., Central Valley, California" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="climateConditions"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Climate Conditions</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="e.g., Hot, dry summers with mild, wet winters. Average rainfall 20 inches."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="location"
+                  render={({ field }) => (
+                    <FormItem className="sm:col-span-2">
+                      <FormLabel>Geographical Location</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., Central Valley, California" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="climateConditions"
+                  render={({ field }) => (
+                    <FormItem className="sm:col-span-2">
+                      <FormLabel>Climate Conditions</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="e.g., Hot, dry summers with mild, wet winters. Average rainfall 20 inches."
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="farmlandArea"
+                    render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Farmland Area</FormLabel>
+                        <FormControl>
+                            <Input type="number" placeholder="e.g., 50" {...field} />
+                        </FormControl>
+                         <FormMessage />
+                    </FormItem>
+                    )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="farmlandUnit"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Unit</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a unit" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="acres">Acres</SelectItem>
+                          <SelectItem value="hectares">Hectares</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+              </div>
 
               <p className="text-sm font-medium text-muted-foreground">Soil Details (Optional)</p>
                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -240,22 +287,36 @@ function CropRecommendationFormComponent() {
               <CardTitle className="flex items-center gap-2 text-primary">
                 <ThumbsUp /> AI-Powered Recommendations
               </CardTitle>
+               <CardDescription>
+                Here are the top crop suggestions and their estimated seed prices based on your farm's details.
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-lg flex items-center gap-2"><Leaf/> Suggested Crops</h3>
-                <div className="mt-2 flex flex-wrap gap-2">
-                    {aiResponse.suggestedCrops.map((crop) => (
-                        <div key={crop.trim()} className="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary-foreground">
-                            {crop.trim()}
-                        </div>
-                    ))}
-                </div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-lg">Reasoning</h3>
-                <p className="mt-2 text-sm text-foreground/80">{aiResponse.reasoning}</p>
-              </div>
+               <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Crop</TableHead>
+                    <TableHead className="text-right">Seed Price</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {aiResponse.suggestedCrops.map((crop) => (
+                    <TableRow key={crop.name}>
+                      <TableCell className="font-medium flex items-center gap-2"><Leaf className="h-4 w-4 text-primary/80"/>{crop.name}</TableCell>
+                      <TableCell className="text-right font-mono">Rs {crop.seedPrice.toFixed(2)} <span className="text-xs text-muted-foreground">{crop.priceUnit}</span></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        )}
+         {!isSubmitting && !aiResponse && (
+          <Card className="flex h-full min-h-96 flex-col items-center justify-center border-dashed">
+            <CardContent className="text-center text-muted-foreground">
+                <Tractor className="mx-auto mb-4 h-12 w-12" />
+                <p className="text-lg font-semibold">Your results will appear here.</p>
+                <p>Fill out the form to get started.</p>
             </CardContent>
           </Card>
         )}

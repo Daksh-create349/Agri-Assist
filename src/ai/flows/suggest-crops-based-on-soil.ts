@@ -27,16 +27,21 @@ const SuggestCropsInputSchema = z.object({
   potassium: z.string().optional().describe('The potassium level in ppm.'),
   soilTexture: z.string().optional().describe('The texture of the soil (e.g., Loamy Sand).'),
   overallHealth: z.string().optional().describe('A summary of the overall soil health.'),
+  farmlandArea: z.number().optional().describe('The area of the farmland.'),
+  farmlandUnit: z.enum(['hectares', 'acres']).optional().describe('The unit for the farmland area.'),
 });
 export type SuggestCropsInput = z.infer<typeof SuggestCropsInputSchema>;
 
+const SuggestedCropSchema = z.object({
+    name: z.string().describe('The name of the suggested crop.'),
+    seedPrice: z.number().describe('The current market price of the seeds for this crop.'),
+    priceUnit: z.string().describe('The unit for the seed price (e.g., "per quintal", "per kg").'),
+});
+
 const SuggestCropsOutputSchema = z.object({
   suggestedCrops: z
-    .array(z.string())
-    .describe('A list of suggested crops suitable for the given soil data, location and climatic conditions.'),
-  reasoning: z
-    .string()
-    .describe('The reasoning behind the crop suggestions, based on the soil analysis and location.'),
+    .array(SuggestedCropSchema)
+    .describe('A list of suggested crops suitable for the given soil data, location and climatic conditions, including seed price information.'),
 });
 export type SuggestCropsOutput = z.infer<typeof SuggestCropsOutputSchema>;
 
@@ -49,9 +54,12 @@ const prompt = ai.definePrompt({
   input: {schema: SuggestCropsInputSchema},
   output: {schema: SuggestCropsOutputSchema},
   prompt: `You are an expert agricultural advisor. Based on the following farm conditions, suggest the most suitable crops.
+Also provide the current market price for the seeds of each suggested crop.
 
+Farm Details:
 Location: {{{location}}}
 Climate: {{{climateConditions}}}
+{{#if farmlandArea}}Farmland Area: {{{farmlandArea}}} {{{farmlandUnit}}}{{/if}}
 
 Soil Analysis:
 - pH Level: {{{phLevel}}}
@@ -62,7 +70,15 @@ Soil Analysis:
 - Texture: {{{soilTexture}}}
 - Overall Health Summary: {{{overallHealth}}}
 
-Please provide a list of suggested crops and a detailed explanation of why each is suitable for these specific conditions.
+Your task:
+1.  Provide a list of suggested crops.
+2.  For each crop, find the current market price for its seeds.
+3.  IMPORTANT PRICING LOGIC:
+    - If the farmland unit is 'hectares', the seed price MUST be per quintal.
+    - If the farmland unit is 'acres', the seed price MUST be per kilogram (kg).
+    - If no farmland unit is provided, default to per kilogram (kg).
+
+Return only the list of crops and their seed prices in the specified format. Do not include any reasoning or explanations.
 `,
 });
 
