@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 
 const farmingSlogans = [
-  "Planting seeds of success, harvesting fields of prosperity.",
-  "Cultivating the land, nourishing the future.",
-  "The future of farming is in your hands.",
-  "From little seeds grow mighty harvests.",
-  "Working the land with passion and purpose.",
-  "Innovation in every furrow, success in every field."
+  "Planting seeds of success, harvesting fields of prosperity. 🌱",
+  "Cultivating the land, nourishing the future. 🌾",
+  "The future of farming is in your hands. 🙌",
+  "From little seeds grow mighty harvests. 🌽",
+  "Working the land with passion and purpose. ❤️",
+  "Innovation in every furrow, success in every field. ✨"
 ];
 
 export function DashboardHeader() {
