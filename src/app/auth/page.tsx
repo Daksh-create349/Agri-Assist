@@ -20,7 +20,7 @@ export default function AuthenticationPage() {
           <AuthForm />
         </div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
+      <div className="relative lg:block">
         <video
           src="https://cdn.pixabay.com/video/2024/06/22/217753_large.mp4"
           autoPlay
