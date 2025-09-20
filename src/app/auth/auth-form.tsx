@@ -135,7 +135,7 @@ export function AuthForm() {
                 <Input
                     ref={fileInputRef}
                     type="file"
-                    accept="image/*"
+                    accept="image/png, image/jpeg, image/webp"
                     onChange={handleFileChange}
                     className="hidden"
                 />
