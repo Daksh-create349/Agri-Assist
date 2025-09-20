@@ -30,9 +30,9 @@ export async function voiceAssistant(
 }
 
 const voiceMap = {
-    'en-US': 'Alloy',
-    'hi-IN': 'Echo',
-    'mr-IN': 'Fable',
+    'en-US': 'algenib',
+    'hi-IN': 'rasalgethi',
+    'mr-IN': 'schedar',
 }
 
 const prompt = ai.definePrompt({
@@ -90,7 +90,7 @@ const voiceAssistantFlow = ai.defineFlow(
         speechConfig: {
           voiceConfig: {
             // @ts-ignore - prebuiltVoiceConfig is valid
-            prebuiltVoiceConfig: { voiceName: voiceMap[input.language] || 'Alloy' },
+            prebuiltVoiceConfig: { voiceName: voiceMap[input.language] || 'algenib' },
           },
         },
       },
