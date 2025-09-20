@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef } from 'react';
@@ -40,6 +41,8 @@ const formSchema = z.object({
   potassium: z.string().optional(),
   texture: z.string().optional(),
   notes: z.string().optional(),
+  location: z.string().min(2, 'Please enter a valid location.'),
+  climateConditions: z.string().min(10, 'Please describe the climate conditions.'),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -64,6 +67,8 @@ export function SoilAnalysisForm() {
       potassium: '',
       texture: '',
       notes: '',
+      location: '',
+      climateConditions: '',
     },
   });
 
@@ -89,12 +94,12 @@ export function SoilAnalysisForm() {
   };
 
   async function onSubmit(values: FormData) {
-    if (!file && Object.values(values).every((v) => !v)) {
+    if (!file && !values.phLevel && !values.nitrogen && !values.phosphorus && !values.potassium) {
       toast({
         variant: 'destructive',
         title: 'No data provided',
         description:
-          'Please upload a soil report or fill in the manual entry fields.',
+          'Please upload a soil report or fill in at least one of the main nutrient fields.',
       });
       return;
     }
@@ -102,9 +107,10 @@ export function SoilAnalysisForm() {
     setAiResponse(null);
     try {
       const photoDataUri = file ? await fileToDataUri(file) : undefined;
-      const response = await analyzeSoilData({ ...values, photoDataUri });
+      const { location, climateConditions, ...soilValues } = values;
+      const response = await analyzeSoilData({ ...soilValues, photoDataUri });
       setAiResponse(response);
-    } catch (error) {
+    } catch (error)
       console.error(error);
       toast({
         variant: 'destructive',
@@ -134,14 +140,14 @@ export function SoilAnalysisForm() {
         <CardHeader>
           <CardTitle>Submit Soil Data</CardTitle>
           <CardDescription>
-            Upload a file or manually enter the key characteristics of your soil.
+            Provide your soil, location, and climate data for a complete analysis and crop recommendations.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-2">
-                <FormLabel>Upload Test Results</FormLabel>
+                <FormLabel>Upload Test Results (Optional)</FormLabel>
                 <Input
                   id="file-upload"
                   type="file"
@@ -299,6 +305,48 @@ export function SoilAnalysisForm() {
                     </FormItem>
                   )}
                 />
+              
+               <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">
+                    Location & Climate
+                  </span>
+                </div>
+              </div>
+
+               <FormField
+                control={form.control}
+                name="location"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Geographical Location</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., Central Valley, California" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="climateConditions"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Climate Conditions</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="e.g., Hot, dry summers with mild, wet winters. Average rainfall 20 inches."
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
 
               <Button type="submit" disabled={isSubmitting}>
                  {isSubmitting ? (
@@ -327,8 +375,9 @@ export function SoilAnalysisForm() {
             </CardContent>
           </Card>
         )}
-        {aiResponse && <SoilAnalysisResult result={aiResponse} />}
+        {aiResponse && <SoilAnalysisResult result={aiResponse} location={form.getValues('location')} climateConditions={form.getValues('climateConditions')} />}
       </div>
     </div>
   );
 }
+
