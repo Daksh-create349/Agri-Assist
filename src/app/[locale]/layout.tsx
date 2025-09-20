@@ -1,6 +1,7 @@
 'use client';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
+import * as React from 'react';
 
 async function getMessages(locale: string) {
   try {
@@ -39,14 +40,8 @@ export default function LocaleLayout({
   }
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      {children}
+    </NextIntlClientProvider>
   );
 }
-
-import * as React from 'react';
