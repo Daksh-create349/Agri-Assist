@@ -20,12 +20,13 @@ export default function AuthenticationPage() {
           <AuthForm />
         </div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
+      <div className="relative hidden lg:block">
         <video
           src="https://cdn.pixabay.com/video/2021/08/04/83896-585600461_large.mp4"
           autoPlay
           loop
           muted
+          playsInline
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-background/0" />
