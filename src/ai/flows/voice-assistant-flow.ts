@@ -38,6 +38,7 @@ const voiceMap = {
 const prompt = ai.definePrompt({
   name: 'voiceAssistantPrompt',
   input: { schema: VoiceAssistantInputSchema },
+  output: { schema: z.object({ response: z.string() }) },
   prompt: `You are AgriAssist, an intelligent AI assistant for farmers.
 You are having a voice conversation with a user. Keep your responses concise and to the point, suitable for a voice interface.
 The user is speaking in {{language}}. Respond in the same language.
@@ -81,7 +82,7 @@ const voiceAssistantFlow = ai.defineFlow(
   },
   async (input) => {
     const llmResponse = await prompt(input);
-    const textResponse = llmResponse.output || 'Sorry, I could not process your request.';
+    const textResponse = llmResponse.output?.response || 'Sorry, I could not process your request.';
 
     const { media } = await ai.generate({
       model: googleAI.model('gemini-2.5-flash-preview-tts'),
