@@ -13,12 +13,6 @@ import {
   LayoutDashboard,
   Settings,
   Menu,
-  Home,
-  Package2,
-  ShoppingCart,
-  Users,
-  LineChart,
-  PanelLeft,
 } from 'lucide-react';
 
 import { Logo } from '@/components/logo';
