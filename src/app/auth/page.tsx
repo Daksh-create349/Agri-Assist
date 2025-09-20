@@ -1,11 +1,7 @@
-import Image from 'next/image';
 import { AuthForm } from './auth-form';
 import { Logo } from '@/components/logo';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function AuthenticationPage() {
-  const authImage = PlaceHolderImages.find(img => img.id === 'auth-background');
-  
   return (
     <main className="grid min-h-screen w-full grid-cols-1 lg:grid-cols-2">
       <div className="flex items-center justify-center p-6 lg:p-8">
@@ -24,17 +20,14 @@ export default function AuthenticationPage() {
           <AuthForm />
         </div>
       </div>
-       <div className="relative hidden bg-muted lg:block">
-        {authImage && (
-          <Image
-            src={authImage.imageUrl}
-            alt="A beautiful farm landscape"
-            fill
-            className="object-cover"
-            data-ai-hint={authImage.imageHint}
-            priority
-          />
-        )}
+      <div className="relative hidden bg-muted lg:block">
+        <video
+          src="https://cdn.pixabay.com/video/2021/08/04/83896-585600461_large.mp4"
+          autoPlay
+          loop
+          muted
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-background/0" />
       </div>
     </main>
