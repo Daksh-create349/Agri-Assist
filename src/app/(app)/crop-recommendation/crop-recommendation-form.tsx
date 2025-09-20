@@ -163,7 +163,9 @@ function CropRecommendationFormComponent() {
                     </FormItem>
                   )}
                 />
+              </div>
 
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FormField
                     control={form.control}
                     name="farmlandArea"
@@ -198,7 +200,6 @@ function CropRecommendationFormComponent() {
                     </FormItem>
                   )}
                 />
-
               </div>
 
               <p className="text-sm font-medium text-muted-foreground">Soil Details (Optional)</p>
