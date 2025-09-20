@@ -79,17 +79,12 @@ export default function SettingsPage() {
           <CardContent>
             <div className="grid gap-2">
               <Label htmlFor="language-select">Language</Label>
-              <Select defaultValue="en">
+              <Select defaultValue="hi">
                 <SelectTrigger id="language-select">
                   <SelectValue placeholder="Select language" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="es">Español (Spanish)</SelectItem>
-                  <SelectItem value="fr">Français (French)</SelectItem>
-                  <SelectItem value="de">Deutsch (German)</SelectItem>
                   <SelectItem value="hi">हिन्दी (Hindi)</SelectItem>
-                  <SelectItem value="zh">中文 (Mandarin)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
