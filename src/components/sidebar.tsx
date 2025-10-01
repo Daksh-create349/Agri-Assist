@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -77,6 +78,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
     return (
         <>
             <aside className="hidden border-r bg-muted/40 md:block">
+              <TooltipProvider>
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className={cn("flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6", isCollapsed && "justify-center")}>
                         <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
@@ -84,7 +86,6 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                         </Link>
                     </div>
                     <div className="flex-1 overflow-y-auto">
-                        <TooltipProvider>
                         <nav className={cn("grid items-start text-sm font-medium", isCollapsed ? "px-2 py-4" : "px-2 py-4 lg:px-4")}>
                             {links.map((link) => (
                                 isCollapsed ? (
@@ -116,7 +117,6 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                                 )
                             ))}
                         </nav>
-                        </TooltipProvider>
                     </div>
                     <div className="mt-auto border-t">
                         <div className={cn("grid items-start text-sm font-medium", isCollapsed ? "px-2 py-4" : "px-2 py-4 lg:px-4")}>
@@ -155,6 +155,7 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
                         </div>
                     </div>
                 </div>
+              </TooltipProvider>
             </aside>
             <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 md:hidden">
                 <Sheet>
