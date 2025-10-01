@@ -12,7 +12,6 @@ import {
   Scan,
   Store,
   TestTube,
-  TrendingUp,
   CloudSun,
   Users,
   Boxes,
@@ -57,12 +56,6 @@ const features = [
     description: 'Sell your grains and produce at a fair price.',
     href: '/marketplace',
     icon: Store,
-  },
-  {
-    title: 'Marketplace Boost',
-    description: 'Optimize your marketplace listings with AI.',
-    href: '/marketplace-boost',
-    icon: TrendingUp,
   },
   {
     title: 'Weather Forecast',

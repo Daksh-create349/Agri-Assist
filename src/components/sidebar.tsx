@@ -10,7 +10,6 @@ import {
   Scan,
   Store,
   TestTube,
-  TrendingUp,
   LayoutDashboard,
   Settings,
   Menu,
@@ -55,11 +54,6 @@ const links = [
   },
   { href: '/crop-guidance', label: 'Location Guidance', icon: MapPin },
   { href: '/marketplace', label: 'Marketplace', icon: Store },
-  {
-    href: '/marketplace-boost',
-    label: 'Marketplace Boost',
-    icon: TrendingUp,
-  },
   { href: '/my-poll', label: 'My Poll', icon: Rss },
   { href: '/weather', label: 'Weather', icon: CloudSun },
   { href: '/community', label: 'Community', icon: Users },
@@ -77,135 +71,165 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
     const pathname = usePathname();
     return (
         <>
-            <aside className="hidden border-r bg-muted/40 md:block">
-              <TooltipProvider>
-                <div className="flex h-full max-h-screen flex-col gap-2">
-                    <div className={cn("flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6", isCollapsed && "justify-center")}>
-                        <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
-                            <Logo isCollapsed={isCollapsed} />
-                        </Link>
-                    </div>
-                    <div className="flex-1 overflow-y-auto">
-                        <nav className={cn("grid items-start text-sm font-medium", isCollapsed ? "px-2 py-4" : "px-2 py-4 lg:px-4")}>
-                            {links.map((link) => (
-                                isCollapsed ? (
-                                    <Tooltip key={link.href} delayDuration={0}>
-                                        <TooltipTrigger asChild>
-                                             <Link
-                                                href={link.href}
-                                                className={cn("flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-primary md:h-8 md:w-8", 
-                                                pathname === link.href && "bg-muted text-primary"
-                                                )}
-                                            >
-                                                <link.icon className="h-5 w-5" />
-                                                <span className="sr-only">{link.label}</span>
-                                            </Link>
-                                        </TooltipTrigger>
-                                        <TooltipContent side="right">{link.label}</TooltipContent>
-                                    </Tooltip>
-                                ) : (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", 
-                                        pathname === link.href && "bg-muted text-primary"
-                                        )}
-                                    >
-                                        <link.icon className="h-4 w-4" />
-                                        {link.label}
-                                    </Link>
-                                )
-                            ))}
-                        </nav>
-                    </div>
-                    <div className="mt-auto border-t">
-                        <div className={cn("grid items-start text-sm font-medium", isCollapsed ? "px-2 py-4" : "px-2 py-4 lg:px-4")}>
-                            {isCollapsed ? (
-                                <Tooltip delayDuration={0}>
-                                    <TooltipTrigger asChild>
-                                        <Link
-                                            href="/settings"
-                                            className={cn("flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-primary md:h-8 md:w-8", 
-                                            pathname === '/settings' && "bg-muted text-primary"
-                                            )}
-                                        >
-                                            <Settings className="h-5 w-5" />
-                                            <span className="sr-only">Settings</span>
-                                        </Link>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right">Settings</TooltipContent>
-                                </Tooltip>
-                            ) : (
-                                <Link
-                                    href="/settings"
-                                    className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", 
-                                    pathname === '/settings' && "bg-muted text-primary"
-                                    )}
-                                >
-                                    <Settings className="h-4 w-4" />
-                                    Settings
-                                </Link>
-                            )}
-                        </div>
-                        <div className="p-4 border-t">
-                            <Button onClick={toggleSidebar} size="icon" variant="outline" className="w-full">
-                            {isCollapsed ? <PanelRight className="h-4 w-4" /> : <PanelLeft className="h-4 w-4" />}
-                            <span className="sr-only">Toggle Sidebar</span>
-                            </Button>
-                        </div>
-                    </div>
+          <aside className="hidden border-r bg-muted/40 md:block">
+            <TooltipProvider>
+              <div className="flex h-full max-h-screen flex-col gap-2">
+                <div
+                  className={cn(
+                    'flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6',
+                    isCollapsed && 'justify-center'
+                  )}
+                >
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2 font-semibold"
+                  >
+                    <Logo isCollapsed={isCollapsed} />
+                  </Link>
                 </div>
-              </TooltipProvider>
-            </aside>
-            <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 md:hidden">
-                <Sheet>
-                    <SheetTrigger asChild>
-                    <Button
-                        variant="outline"
-                        size="icon"
-                        className="shrink-0"
-                    >
-                        <Menu className="h-5 w-5" />
-                        <span className="sr-only">Toggle navigation menu</span>
-                    </Button>
-                    </SheetTrigger>
-                    <SheetContent side="left" className="flex flex-col">
-                    <nav className="grid gap-2 text-lg font-medium">
-                        <Link
-                            href="/dashboard"
-                            className="flex items-center gap-2 text-lg font-semibold mb-4"
-                        >
-                            <Logo />
-                            <span className="sr-only">AgriAssist</span>
-                        </Link>
-                        {links.map((link) => (
+                <div className="flex-1 overflow-y-auto">
+                  <nav
+                    className={cn(
+                      'grid items-start text-sm font-medium',
+                      isCollapsed ? 'px-2 py-4' : 'px-2 py-4 lg:px-4'
+                    )}
+                  >
+                    {links.map((link) =>
+                      isCollapsed ? (
+                        <Tooltip key={link.href} delayDuration={0}>
+                          <TooltipTrigger asChild>
                             <Link
-                                key={link.href}
-                                href={link.href}
-                                className={cn("mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground",
-                                pathname === link.href && "bg-muted text-foreground"
-                                )}
+                              href={link.href}
+                              className={cn(
+                                'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-primary md:h-8 md:w-8',
+                                pathname === link.href && 'bg-muted text-primary'
+                              )}
                             >
-                                <link.icon className="h-5 w-5" />
-                                {link.label}
+                              <link.icon className="h-5 w-5" />
+                              <span className="sr-only">{link.label}</span>
                             </Link>
-                        ))}
-                    </nav>
-                     <div className="mt-auto">
+                          </TooltipTrigger>
+                          <TooltipContent side="right">
+                            {link.label}
+                          </TooltipContent>
+                        </Tooltip>
+                      ) : (
                         <Link
-                            href="/settings"
-                            className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                            >
-                            <Settings className="h-5 w-5" />
-                            Settings
+                          key={link.href}
+                          href={link.href}
+                          className={cn(
+                            'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
+                            pathname === link.href && 'bg-muted text-primary'
+                          )}
+                        >
+                          <link.icon className="h-4 w-4" />
+                          {link.label}
                         </Link>
-                    </div>
-                    </SheetContent>
-                </Sheet>
-                 <div className="w-full flex-1">
-                    {/* Optionally add a search bar or other header elements here for mobile */}
+                      )
+                    )}
+                  </nav>
                 </div>
-            </header>
-       </>
+                <div className="mt-auto border-t">
+                  <div
+                    className={cn(
+                      'grid items-start text-sm font-medium',
+                      isCollapsed ? 'px-2 py-4' : 'px-2 py-4 lg:px-4'
+                    )}
+                  >
+                    {isCollapsed ? (
+                      <Tooltip delayDuration={0}>
+                        <TooltipTrigger asChild>
+                          <Link
+                            href="/settings"
+                            className={cn(
+                              'flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-primary md:h-8 md:w-8',
+                              pathname === '/settings' && 'bg-muted text-primary'
+                            )}
+                          >
+                            <Settings className="h-5 w-5" />
+                            <span className="sr-only">Settings</span>
+                          </Link>
+                        </TooltipTrigger>
+                        <TooltipContent side="right">Settings</TooltipContent>
+                      </Tooltip>
+                    ) : (
+                      <Link
+                        href="/settings"
+                        className={cn(
+                          'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
+                          pathname === '/settings' && 'bg-muted text-primary'
+                        )}
+                      >
+                        <Settings className="h-4 w-4" />
+                        Settings
+                      </Link>
+                    )}
+                  </div>
+                  <div className="p-4 border-t">
+                    <Button
+                      onClick={toggleSidebar}
+                      size="icon"
+                      variant="outline"
+                      className="w-full"
+                    >
+                      {isCollapsed ? (
+                        <PanelRight className="h-4 w-4" />
+                      ) : (
+                        <PanelLeft className="h-4 w-4" />
+                      )}
+                      <span className="sr-only">Toggle Sidebar</span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </TooltipProvider>
+          </aside>
+          <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="shrink-0">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle navigation menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="flex flex-col">
+                <nav className="grid gap-2 text-lg font-medium">
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2 text-lg font-semibold mb-4"
+                  >
+                    <Logo />
+                    <span className="sr-only">AgriAssist</span>
+                  </Link>
+                  {links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        'mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground',
+                        pathname === link.href && 'bg-muted text-foreground'
+                      )}
+                    >
+                      <link.icon className="h-5 w-5" />
+                      {link.label}
+                    </Link>
+                  ))}
+                </nav>
+                <div className="mt-auto">
+                  <Link
+                    href="/settings"
+                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                  >
+                    <Settings className="h-5 w-5" />
+                    Settings
+                  </Link>
+                </div>
+              </SheetContent>
+            </Sheet>
+            <div className="w-full flex-1">
+              {/* Optionally add a search bar or other header elements here for mobile */}
+            </div>
+          </header>
+        </>
     );
 }
